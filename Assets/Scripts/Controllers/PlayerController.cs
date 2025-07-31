@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -42,18 +44,20 @@ namespace GJ_GMTK_Jul_2025
             UpdateState();
 
             UpdateMovement();
+
+            UpdateTimers();
         }
 
         #region Input
 
         bool _wantsToMove;
-        bool _wantsToFlipRot;
+        bool _wantsToFlipLooping;
 
         private void UpdateInput()
         {
             _wantsToMove = Input.GetKey(KeyCode.Mouse0);
 
-            _wantsToFlipRot = Input.GetKeyDown(KeyCode.Mouse1);
+            _wantsToFlipLooping = Input.GetKeyDown(KeyCode.Mouse1);
         }
 
         #endregion
@@ -67,18 +71,34 @@ namespace GJ_GMTK_Jul_2025
             bool calculateOffset = false;
 
             // State Changing
-            if (ChangeState(_wantsToMove ? EState.Moving : EState.Looping))
+            EState targetState = _currState;
+            if (_wantsToMove)
+            {
+                if (targetState == EState.Moving) // Still moving
+                    _moveTimer = _playerData.MoveCooldown;
+                else if (TryResetTimer(ref _moveTimer, _playerData.MoveCooldown))
+                    targetState = EState.Moving;
+            }
+            else
+                targetState = EState.Looping;
+
+            if (ChangeState(targetState))
             {
                 if (_currState == EState.Looping)
                     calculateOffset = true;
             }
 
             // Rotation flipping flag set
-            if (_wantsToFlipRot)
+            if (_wantsToFlipLooping)
             {
-                _isLoopingClockwise = !_isLoopingClockwise;
+                _wantsToFlipLooping = false;
 
-                calculateOffset = true;
+                if (TryResetTimer(ref _flipLoopTimer, _playerData.LoopDirFlipCooldown))
+                {
+                    _isLoopingClockwise = !_isLoopingClockwise;
+
+                    calculateOffset = true;
+                }
             }
 
             if (calculateOffset)
@@ -119,6 +139,28 @@ namespace GJ_GMTK_Jul_2025
                     _rigidBody.position += _tangent * _playerData.BaseMoveSpeed;
                     break;
             }
+        }
+
+        #endregion
+
+        #region Timers
+
+        float _flipLoopTimer = 0;
+        float _moveTimer = 0;
+
+        private bool TryResetTimer(ref float timer, float duration)
+        {
+            if (timer > 0)
+                return false;
+
+            timer = duration;
+            return true;
+        }
+
+        private void UpdateTimers()
+        {
+            _flipLoopTimer -= Time.deltaTime;
+            _moveTimer -= Time.deltaTime;
         }
 
         #endregion
