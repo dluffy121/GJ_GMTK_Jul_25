@@ -111,6 +111,7 @@ public class Player : MonoBehaviour
     internal void StopInputs()
     {
         m_controller.StopInputs();
+        GameManager.PlayerOutOfBounds();
     }
 
     internal void ApplyPullEffect(Vector3 position, float pullStrength)

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,6 +8,8 @@ public class GameManager : MonoBehaviour
     Player m_player;
     [SerializeField]
     GameSceneManager m_sceneManager;
+    [SerializeField]
+    UIManager m_uiManager;
 
     static GameManager Instance;
 
@@ -14,20 +17,29 @@ public class GameManager : MonoBehaviour
 
     public static Action OnPlayerInstantiated;
     public static Action OnPlayerDestroyed;
+    public static Action OnPlayerOutOfBounds;
+    public static Action OnMainMenuSceneLoaded;
+    public static Action OnMainMenuSceneUnloaded;
     public static Action OnGameplaySceneLoaded;
+    public static Action OnGameplaySceneUnloaded;
 
-    const int INDEX__MAINMENU = 0;
-    const int INDEX__GAMEPLAY = 1;
+    const int INDEX__MAINMENU = 1;
+    const int INDEX__GAMEPLAY = 2;
 
     private void Awake()
     {
         Instance = this;
+    }
+    private void Start()
+    {
+        LoadMainMenuScene();
     }
     private void OnDestroy()
     {
         Instance = null;
     }
 
+    #region Scene Changes
     public static void LoadMainMenuScene()
     {
         Instance.m_sceneManager.LoadScene(INDEX__MAINMENU);
@@ -37,23 +49,84 @@ public class GameManager : MonoBehaviour
         Instance.m_sceneManager.LoadScene(INDEX__GAMEPLAY);
     }
 
+    public static void LoadGameplaySceneWithLevel(int a_levelNo) 
+    {
+        LevelManager.SetCurrentLevelIndex(a_levelNo);
+        Instance.m_sceneManager.LoadScene(INDEX__GAMEPLAY);
+    }
+
+    public static void LoadGameplaySceneWithLastUnlockedLevel()
+    {
+        LevelManager.SetCurrentLevelAsLastUnlocked();
+        Instance.m_sceneManager.LoadScene(INDEX__GAMEPLAY);
+    }
+
     public static void ReloadScene()
     {
         Instance.m_sceneManager.ReloadScene();
     }
+    #endregion
 
+    #region Player Related Methods
     public static void InstantiatePlayer(Transform a_transParent)
     {
         Instance.CurrentPlayer = Instantiate(Instance.m_player, a_transParent);
         OnPlayerInstantiated?.Invoke();
     }
 
+    public static void PlayerOutOfBounds()
+    {
+        OnPlayerOutOfBounds?.Invoke();
+    }
+
     public static void DestroyPlayer()
+    {
+        DestroyPlayerWithoutCallBack();
+        OnPlayerDestroyed?.Invoke();
+    }
+
+    public static void DestroyPlayerWithoutCallBack()
     {
         Destroy(Instance.CurrentPlayer.gameObject);
         Instance.CurrentPlayer = null;
-        OnPlayerDestroyed?.Invoke();
     }
+    #endregion
+
+    #region UIRelated
+    public static void ShowWinUI()
+    {
+        Instance.m_uiManager.ShowWinUI();
+    }
+    public static void HideWinUI()
+    {
+        Instance.m_uiManager.HideWinUI();
+    }
+    public static void ShowLossUI()
+    {
+        Instance.m_uiManager.ShowLossUI();
+    }
+    public static void HideLossUI()
+    {
+        Instance.m_uiManager.HideLossUI();
+    }
+    public static void ShowMainMenuUI()
+    {
+        Instance.m_uiManager.ShowMainMenuUI();
+    }
+    public static void HideMainMenuUI()
+    {
+        Instance.m_uiManager.HideMainMenuUI();
+    }
+    public static void ShowLevelSelectionUI()
+    {
+        Instance.m_uiManager.ShowLevelSelectionUI();
+    }
+    public static void HideLevelSelectionUI()
+    {
+        Instance.m_uiManager.HideLevelSelectionUI();
+    }
+    #endregion
+
     public void QuitGame()
     {
 #if UNITY_EDITOR

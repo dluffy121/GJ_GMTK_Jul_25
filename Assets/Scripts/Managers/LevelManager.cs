@@ -1,19 +1,36 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
     [SerializeField]
     Levels[] m_levels;
-
-    public Transform PlayerInstantiatePos;
+    [SerializeField]
+    float m_timeBeforeReloading;
 
     Levels m_currLevel;
-    int m_currentLevelIndex = 1;
+    int m_currentLevelIndex = 0;
 
     static LevelManager Instance;
 
-    public int GetCurrentLevel() => m_currentLevelIndex;
-    public int SetCurrentLevel(int a_levelNo) => m_currentLevelIndex = a_levelNo;
+    public static Action OnStarCollect;
+
+    public static int GetCurrentLevel() => Instance.m_currentLevelIndex;
+    public static void SetCurrentLevelIndex(int a_levelNo) => Instance.m_currentLevelIndex = a_levelNo;
+    public static void SetCurrentLevelAsLastUnlocked()
+    {
+        if (PlayerPrefs.HasKey(UNLOCKED_LEVEL))
+        {
+            Instance.m_currentLevelIndex = PlayerPrefs.GetInt(UNLOCKED_LEVEL);
+            if(Instance.m_currentLevelIndex + 1 > Instance.m_levels.Length)
+                Instance.m_currentLevelIndex = 0;
+        }
+        else
+            Instance.m_currentLevelIndex = 0;
+    }
+
+    const string UNLOCKED_LEVEL = "UnlockedLevel";
 
     private void Awake()
     {
@@ -22,15 +39,24 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         GameManager.OnPlayerDestroyed += OnPlayerDestroyed;
+        GameManager.OnPlayerOutOfBounds += OnPlayerOutOfBounds;
         GameManager.OnGameplaySceneLoaded += OnGameplaySceneLoaded;
+        OnStarCollect += OnStarCollected;
     }
 
 
     private void OnDestroy()
     {
         GameManager.OnPlayerDestroyed -= OnPlayerDestroyed;
+        GameManager.OnPlayerOutOfBounds -= OnPlayerOutOfBounds;
         GameManager.OnGameplaySceneLoaded -= OnGameplaySceneLoaded;
+        OnStarCollect -= OnStarCollected;
         Instance = null;
+    }
+
+    private void OnStarCollected()
+    {
+        m_currLevel.IncrementStarsCollected();
     }
 
     private void OnGameplaySceneLoaded()
@@ -40,7 +66,7 @@ public class LevelManager : MonoBehaviour
 
     private void InstantiateLevel(int a_loadLevel)
     {
-        m_currLevel = Instantiate( m_levels[a_loadLevel-1]);
+        m_currLevel = Instantiate( m_levels[a_loadLevel]);
         GameManager.InstantiatePlayer(m_currLevel.playerPos);
     }
     private void LoadLevel()
@@ -50,22 +76,52 @@ public class LevelManager : MonoBehaviour
 
     private void OnPlayerDestroyed()
     {
-        LevelRetry();
+        StartCoroutine(WaitToRetryLevel());
     }
-
-    public static void LevelFailed()
+    private void OnPlayerOutOfBounds()
     {
-
+        StartCoroutine(WaitAndDestroyPlayer());
     }
 
-    public static void LevelRetry()
+    private void LevelRetry()
     {
         GameManager.ReloadScene();
+    }
+
+    IEnumerator WaitAndDestroyPlayer()
+    {
+        yield return StartCoroutine(WaitToRetryLevel());
+        GameManager.DestroyPlayerWithoutCallBack();
+    }
+
+    IEnumerator WaitToRetryLevel()
+    {
+        GameManager.ShowLossUI();
+        yield return new WaitForSeconds(m_timeBeforeReloading);
+        GameManager.HideLossUI();
+        LevelRetry();
+    }
+    IEnumerator WaitToCompleteLevel()
+    {
+        GameManager.ShowWinUI();
+        yield return new WaitForSeconds(m_timeBeforeReloading);
+        GameManager.HideWinUI();
+        if (m_currentLevelIndex < m_levels.Length)
+            GameManager.ReloadScene();
+        else
+            GameManager.LoadMainMenuScene();
     }
 
     public static void LevelCompleted()
     {
         Instance.m_currentLevelIndex++;
-        GameManager.ReloadScene();
+        GameManager.DestroyPlayerWithoutCallBack();
+        PlayerPrefs.SetInt(UNLOCKED_LEVEL, Instance.m_currentLevelIndex);
+        Instance.StartCoroutine(Instance.WaitToCompleteLevel());
+    }
+
+    public static void LevelFailed()
+    {
+
     }
 }

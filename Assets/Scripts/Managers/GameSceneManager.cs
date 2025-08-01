@@ -8,6 +8,25 @@ public class GameSceneManager : MonoBehaviour
     {
         // Subscribe to scene loaded event
         SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+    }
+
+    private void OnDisable()
+    {
+        // Unsubscribe to avoid memory leaks
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    } 
+
+    private void OnSceneUnloaded(Scene scene)
+    {
+        if (scene.name == "MainMenu")
+        {
+            GameManager.OnMainMenuSceneUnloaded?.Invoke();
+        }
+        if (scene.name == "Gameplay")
+        {
+            GameManager.OnGameplaySceneUnloaded?.Invoke();
+        }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -16,14 +35,11 @@ public class GameSceneManager : MonoBehaviour
         {
             GameManager.OnGameplaySceneLoaded?.Invoke();
         }
+        if(scene.name == "MainMenu")
+        {
+            GameManager.OnMainMenuSceneLoaded?.Invoke();
+        }
     }
-
-    private void OnDisable()
-    {
-        // Unsubscribe to avoid memory leaks
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
