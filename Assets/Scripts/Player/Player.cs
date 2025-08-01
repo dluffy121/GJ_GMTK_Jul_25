@@ -128,5 +128,10 @@ public class Player : MonoBehaviour
         m_controller.Teleport(target);
     }
 
+    internal void FlipLoop()
+    {
+        m_controller.FlipLoop();
+    }
+
     #endregion
 }

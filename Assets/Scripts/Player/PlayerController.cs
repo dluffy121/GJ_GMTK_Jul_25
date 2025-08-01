@@ -154,7 +154,8 @@ namespace GJ_GMTK_Jul_2025
                     Vector3 centerToPlayer = transform.position - _loopOffsetPoint;
                     Vector3 desiredPos = _loopOffsetPoint + centerToPlayer.normalized * _playerMovData.LoopOffset;
                     transform.position = desiredPos;
-                    _tangent = Vector3.Cross(_isLoopingClockwise ? Vector3.up : Vector3.down, centerToPlayer).normalized;
+                    Vector3 lhs = _isLoopingClockwise ? Vector3.up : Vector3.down;
+                    _tangent = Vector3.Cross(lhs, centerToPlayer).normalized;
                     _rigidBody.linearVelocity = _tangent * _playerMovData.BaseLoopSpeed;
                     _rigidBody.rotation = Quaternion.LookRotation(_tangent);
                     break;
@@ -205,6 +206,11 @@ namespace GJ_GMTK_Jul_2025
             transform.position = target.position;
             transform.forward = target.forward;
             CalculateOffset();
+        }
+
+        internal void FlipLoop()
+        {
+            _isLoopingClockwise = !_isLoopingClockwise;
         }
 
         #endregion
