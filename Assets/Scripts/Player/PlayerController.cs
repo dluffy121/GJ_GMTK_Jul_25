@@ -15,7 +15,7 @@ namespace GJ_GMTK_Jul_2025
 
     public class PlayerController : MonoBehaviour
     {
-
+        bool _isTakingInput = true;
         Rigidbody _rigidBody;
         PlayerMovementData _playerMovData;
 
@@ -62,6 +62,12 @@ namespace GJ_GMTK_Jul_2025
 
         private void UpdateInput()
         {
+            if (!_isTakingInput)
+            {
+                _wantsToMove = true;
+                return;
+            }
+
             _wantsToMove = Input.GetKey(KeyCode.Mouse0);
 
             _wantsToFlipLooping = Input.GetKeyDown(KeyCode.Mouse1);
@@ -72,6 +78,11 @@ namespace GJ_GMTK_Jul_2025
         #region State Change
 
         EState _currState = (EState)(-1);
+
+        internal void StopInputs()
+        {
+            _isTakingInput = false;
+        }
 
         private void UpdateState()
         {

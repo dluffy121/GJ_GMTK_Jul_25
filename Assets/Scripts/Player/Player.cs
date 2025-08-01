@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
-        m_playerHealth.OnHealthZero += OnPlayerDied;    
+        m_playerHealth.OnHealthZero += OnPlayerDied;
     }
     private void OnDestroy()
     {
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
     }
     public static void IncreasePlayerSpeed(float a_incSpeed)
     {
-        
+
     }
     public static void DecreasePlayerSpeed(float a_decSpeed)
     {
@@ -71,9 +71,9 @@ public class Player : MonoBehaviour
 
     }
 
-    public static void OnPickupPowerup(EPowerup a_powerupType, float a_value) 
+    public static void OnPickupPowerup(EPowerup a_powerupType, float a_value)
     {
-        switch (a_powerupType) 
+        switch (a_powerupType)
         {
             case EPowerup.IncreaseSpeed:
                 break;
@@ -105,4 +105,13 @@ public class Player : MonoBehaviour
                 break;
         }
     }
+
+    #region World Interactions
+
+    internal void StopInputs()
+    {
+        m_controller.StopInputs();
+    }
+
+    #endregion
 }
