@@ -15,8 +15,9 @@ namespace GJ_GMTK_Jul_2025
 
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] PlayerData _playerData;
-        [SerializeField] Rigidbody _rigidBody;
+
+        Rigidbody _rigidBody;
+        PlayerMovementData _playerMovData;
 
 #if UNITY_EDITOR
 
@@ -36,6 +37,12 @@ namespace GJ_GMTK_Jul_2025
         }
 
 #endif
+
+        private void Start()
+        {
+            _playerMovData = Player.PlayerMovData;
+            _rigidBody = Player.PlayerRigidbody;
+        }
 
         void Update()
         {
@@ -75,8 +82,8 @@ namespace GJ_GMTK_Jul_2025
             if (_wantsToMove)
             {
                 if (targetState == EState.Moving) // Still moving
-                    _moveTimer = _playerData.MoveCooldown;
-                else if (TryResetTimer(ref _moveTimer, _playerData.MoveCooldown))
+                    _moveTimer = _playerMovData.MoveCooldown;
+                else if (TryResetTimer(ref _moveTimer, _playerMovData.MoveCooldown))
                     targetState = EState.Moving;
             }
             else
@@ -93,7 +100,7 @@ namespace GJ_GMTK_Jul_2025
             {
                 _wantsToFlipLooping = false;
 
-                if (TryResetTimer(ref _flipLoopTimer, _playerData.LoopDirFlipCooldown))
+                if (TryResetTimer(ref _flipLoopTimer, _playerMovData.LoopDirFlipCooldown))
                 {
                     _isLoopingClockwise = !_isLoopingClockwise;
 
@@ -104,7 +111,7 @@ namespace GJ_GMTK_Jul_2025
             if (calculateOffset)
             {
                 Vector3 offsetDir = _isLoopingClockwise ? transform.right : -transform.right;
-                _loopOffsetPoint = transform.position + offsetDir * _playerData.LoopOffset;
+                _loopOffsetPoint = transform.position + offsetDir * _playerMovData.LoopOffset;
             }
         }
 
@@ -129,14 +136,14 @@ namespace GJ_GMTK_Jul_2025
             {
                 case EState.Looping:
                     Vector3 centerToPlayer = transform.position - _loopOffsetPoint;
-                    Vector3 desiredPos = _loopOffsetPoint + centerToPlayer.normalized * _playerData.LoopOffset;
+                    Vector3 desiredPos = _loopOffsetPoint + centerToPlayer.normalized * _playerMovData.LoopOffset;
                     transform.position = desiredPos;
                     _tangent = Vector3.Cross(_isLoopingClockwise ? Vector3.up : Vector3.down, centerToPlayer).normalized;
-                    _rigidBody.linearVelocity = _tangent * _playerData.BaseLoopSpeed;
+                    _rigidBody.linearVelocity = _tangent * _playerMovData.BaseLoopSpeed;
                     _rigidBody.rotation = Quaternion.LookRotation(_tangent);
                     break;
                 case EState.Moving:
-                    _rigidBody.position += _tangent * _playerData.BaseMoveSpeed;
+                    _rigidBody.position += _tangent * _playerMovData.BaseMoveSpeed;
                     break;
             }
         }

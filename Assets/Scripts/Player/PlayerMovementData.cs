@@ -3,7 +3,7 @@ using UnityEngine;
 namespace GJ_GMTK_Jul_2025
 {
     [CreateAssetMenu()]
-    public class PlayerData : ScriptableObject
+    public class PlayerMovementData : ScriptableObject
     {
         [SerializeField] public float BaseLoopSpeed = 10;
         [SerializeField] public float LoopOffset = 1;
