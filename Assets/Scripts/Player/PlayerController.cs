@@ -120,10 +120,7 @@ namespace GJ_GMTK_Jul_2025
             }
 
             if (calculateOffset)
-            {
-                Vector3 offsetDir = _isLoopingClockwise ? transform.right : -transform.right;
-                _loopOffsetPoint = transform.position + offsetDir * _playerMovData.LoopOffset;
-            }
+                CalculateOffset();
         }
 
         private bool ChangeState(EState state)
@@ -140,6 +137,14 @@ namespace GJ_GMTK_Jul_2025
         bool _isLoopingClockwise = true;
         Vector3 _loopOffsetPoint;
         Vector3 _tangent;
+        Vector3? _pullTarget = null;
+        float _pullStrength = 0f;
+
+        private void CalculateOffset()
+        {
+            Vector3 offsetDir = _isLoopingClockwise ? transform.right : -transform.right;
+            _loopOffsetPoint = transform.position + offsetDir * _playerMovData.LoopOffset;
+        }
 
         private void UpdateMovement()
         {
@@ -179,6 +184,27 @@ namespace GJ_GMTK_Jul_2025
         {
             _flipLoopTimer -= Time.deltaTime;
             _moveTimer -= Time.deltaTime;
+        }
+
+        #endregion
+
+        #region World Interactions
+
+        internal void ApplyPullEffect(Vector3 position, float pullStrength)
+        {
+            _pullTarget = position;
+            _pullStrength = pullStrength;
+        }
+
+        internal void ApplyPushEffect(Vector3 direction, float pushStrength)
+        {
+        }
+
+        internal void Teleport(Transform target)
+        {
+            transform.position = target.position;
+            transform.forward = target.forward;
+            CalculateOffset();
         }
 
         #endregion

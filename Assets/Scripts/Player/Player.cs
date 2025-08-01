@@ -113,5 +113,20 @@ public class Player : MonoBehaviour
         m_controller.StopInputs();
     }
 
+    internal void ApplyPullEffect(Vector3 position, float pullStrength)
+    {
+        m_controller.ApplyPullEffect(position, pullStrength);
+    }
+
+    internal void ApplyPushEffect(Vector3 direction, float pushStrength)
+    {
+        m_controller.ApplyPushEffect(direction, pushStrength);
+    }
+
+    internal void Teleport(Transform target)
+    {
+        m_controller.Teleport(target);
+    }
+
     #endregion
 }
