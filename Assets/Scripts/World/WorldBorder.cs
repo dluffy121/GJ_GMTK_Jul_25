@@ -14,13 +14,9 @@ public class WorldBorder : MonoBehaviour
 
     BoxCollider _boxCollider;
 
-    void OnValidate()
-    {
-        _boxCollider ??= GetComponent<BoxCollider>();
-    }
-
     void OnDrawGizmos()
     {
+        _boxCollider ??= GetComponent<BoxCollider>();
         Gizmos.color = Color.green;
         Gizmos.matrix = transform.localToWorldMatrix;
         Gizmos.DrawWireCube(_boxCollider.center, _boxCollider.size);
