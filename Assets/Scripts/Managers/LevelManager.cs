@@ -1,15 +1,19 @@
-using System;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    [SerializeField]
+    Levels[] m_levels;
+
     public Transform PlayerInstantiatePos;
 
-    uint m_currentLevel;
+    Levels m_currLevel;
+    int m_currentLevelIndex = 1;
 
     static LevelManager Instance;
 
-    public uint GetCurrentLevel() => m_currentLevel;
+    public int GetCurrentLevel() => m_currentLevelIndex;
+    public int SetCurrentLevel(int a_levelNo) => m_currentLevelIndex = a_levelNo;
 
     private void Awake()
     {
@@ -17,33 +21,36 @@ public class LevelManager : MonoBehaviour
     }
     private void Start()
     {
-        GameManager.InstantiatePlayer(PlayerInstantiatePos);
         GameManager.OnPlayerDestroyed += OnPlayerDestroyed;
+        GameManager.OnGameplaySceneLoaded += OnGameplaySceneLoaded;
     }
+
+
     private void OnDestroy()
     {
         GameManager.OnPlayerDestroyed -= OnPlayerDestroyed;
+        GameManager.OnGameplaySceneLoaded -= OnGameplaySceneLoaded;
         Instance = null;
+    }
+
+    private void OnGameplaySceneLoaded()
+    {
+        LoadLevel();
+    }
+
+    private void InstantiateLevel(int a_loadLevel)
+    {
+        m_currLevel = Instantiate( m_levels[a_loadLevel-1]);
+        GameManager.InstantiatePlayer(m_currLevel.playerPos);
+    }
+    private void LoadLevel()
+    {
+        InstantiateLevel(m_currentLevelIndex);
     }
 
     private void OnPlayerDestroyed()
     {
-        LevelFailed();
-    }
-
-    public static void LoadNextLevel()
-    {
-        Instance.m_currentLevel++;
-    }
-
-    public static void ReloadLevel()
-    {
-        GameManager.ReloadScene();
-    }
-
-    public static void LoadLevel(uint a_loadLevel)
-    {
-
+        LevelRetry();
     }
 
     public static void LevelFailed()
@@ -53,11 +60,12 @@ public class LevelManager : MonoBehaviour
 
     public static void LevelRetry()
     {
-        ReloadLevel();
+        GameManager.ReloadScene();
     }
 
     public static void LevelCompleted()
     {
-        LoadNextLevel();
+        Instance.m_currentLevelIndex++;
+        GameManager.ReloadScene();
     }
 }

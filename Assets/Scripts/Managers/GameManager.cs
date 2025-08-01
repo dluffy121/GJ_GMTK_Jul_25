@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     public static Action OnPlayerInstantiated;
     public static Action OnPlayerDestroyed;
+    public static Action OnGameplaySceneLoaded;
 
     const int INDEX__MAINMENU = 0;
     const int INDEX__GAMEPLAY = 1;
