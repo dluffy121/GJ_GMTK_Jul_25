@@ -36,19 +36,9 @@ public class GameManager : MonoBehaviour
         Instance.m_sceneManager.LoadScene(INDEX__GAMEPLAY);
     }
 
-    public static void LoadLevel(uint a_levelToLoad)
+    public static void ReloadScene()
     {
-        LevelManager.LoadLevel(a_levelToLoad);
-    }
-
-    public static void ReloadLevel()
-    {
-        LevelManager.ReloadLevel();
-    }
-
-    public static void LoadNextLevel()
-    {
-        LevelManager.LoadNextLevel();
+        Instance.m_sceneManager.ReloadScene();
     }
 
     public static void InstantiatePlayer(Transform a_transParent)

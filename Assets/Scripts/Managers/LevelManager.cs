@@ -38,7 +38,7 @@ public class LevelManager : MonoBehaviour
 
     public static void ReloadLevel()
     {
-
+        GameManager.ReloadScene();
     }
 
     public static void LoadLevel(uint a_loadLevel)
