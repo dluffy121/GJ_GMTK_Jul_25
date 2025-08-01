@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseLoopSpeed: 5
   LoopOffset: 2
-  LoopDirFlipCooldown: 2
+  LoopDirFlipCooldown: 0.1
   BaseMoveSpeed: 0.01
   MoveCooldown: 1
