@@ -46,4 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_levels:
   - {fileID: 692672217353755658, guid: 8548873e2efaddf44aa7db0c087e71e0, type: 3}
-  PlayerInstantiatePos: {fileID: 0}
+  - {fileID: 5588267662891022208, guid: 7225729b9d8f1054d8c3cc5dd1658789, type: 3}
+  m_timeBeforeReloading: 0
