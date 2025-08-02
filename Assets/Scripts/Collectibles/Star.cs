@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Star : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
-        if(other.transform.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             LevelManager.OnStarCollect?.Invoke();
             Destroy(gameObject);
