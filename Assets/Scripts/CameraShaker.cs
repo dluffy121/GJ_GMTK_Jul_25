@@ -4,7 +4,7 @@ using System.Collections;
 public class CameraShaker : MonoBehaviour
 {
     public float shakeDuration = 0.5f; // How long the shake lasts
-    public float shakeMagnitude = 0.01f; // How strong the shake is
+    public float shakeMagnitude = 1f; // How strong the shake is
     public float shakeMagnitudeOnDeath = 0.1f; // How strong the shake is
     public float dampingSpeed = 1.0f; // How quickly the shake fades out
 
