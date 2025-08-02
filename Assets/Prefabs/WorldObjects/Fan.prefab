@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1137261744432790563, guid: 47a46f58bdbe6164dae471aa724925fb, type: 3}
       propertyPath: m_Name
-      value: Vacuum
+      value: Fan
       objectReference: {fileID: 0}
     - target: {fileID: 4436561173664220020, guid: 47a46f58bdbe6164dae471aa724925fb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52,20 +52,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5947186514619944934, guid: 47a46f58bdbe6164dae471aa724925fb, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1137261744432790563, guid: 47a46f58bdbe6164dae471aa724925fb, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5326646448971575069}
+      addedObject: {fileID: -138871052511383139}
+    - targetCorrespondingSourceObject: {fileID: 1137261744432790563, guid: 47a46f58bdbe6164dae471aa724925fb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2380094037102016954}
   m_SourcePrefab: {fileID: 100100000, guid: 47a46f58bdbe6164dae471aa724925fb, type: 3}
 --- !u!1 &871014255474098752 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1137261744432790563, guid: 47a46f58bdbe6164dae471aa724925fb, type: 3}
   m_PrefabInstance: {fileID: 278707910985088611}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5326646448971575069
+--- !u!114 &-138871052511383139
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,7 +78,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 871014255474098752}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60703dd062c25c94aa4e609c10857c5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 975f33401fc17c148916f325b68a8284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pullStrength: 10
+  _pushStrength: 0.001
+--- !u!65 &2380094037102016954
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871014255474098752}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
