@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class GameSceneManager : MonoBehaviour
 {
+    public bool IsSceneReLoading = false;
+
     private void OnEnable()
     {
         // Subscribe to scene loaded event
@@ -15,7 +17,7 @@ public class GameSceneManager : MonoBehaviour
     {
         // Unsubscribe to avoid memory leaks
         SceneManager.sceneLoaded -= OnSceneLoaded;
-    } 
+    }
 
     private void OnSceneUnloaded(Scene scene)
     {
@@ -31,11 +33,12 @@ public class GameSceneManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if(scene.name == "Gameplay")
+        IsSceneReLoading = false;
+        if (scene.name == "Gameplay")
         {
             GameManager.OnGameplaySceneLoaded?.Invoke();
         }
-        if(scene.name == "MainMenu")
+        if (scene.name == "MainMenu")
         {
             GameManager.OnMainMenuSceneLoaded?.Invoke();
         }
@@ -56,8 +59,9 @@ public class GameSceneManager : MonoBehaviour
 
     public void ReloadScene()
     {
+        IsSceneReLoading = true;
         LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    
+
 }
