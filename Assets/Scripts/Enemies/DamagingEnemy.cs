@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class DamagingEnemy : EnemiesBase
 {
-    [SerializeField]
-    float DamageValue;
+    [SerializeField] float DamageValue;
+
     protected override void DamagePlayer()
     {
         Player.DecreasePlayerHealth(DamageValue);

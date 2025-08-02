@@ -71,7 +71,7 @@ public class EnemyLaserBeam : MonoBehaviour
         }
         else
         {
-            if(!m_aboutToLaunch.activeSelf)
+            if (!m_aboutToLaunch.activeSelf)
                 m_aboutToLaunch.SetActive(true);
         }
     }
@@ -91,7 +91,7 @@ public class EnemyLaserBeam : MonoBehaviour
         float l_timer = 0f;
         while (l_timer < moveDuration)
         {
-            float normalized = timer / moveDuration;      
+            float normalized = timer / moveDuration;
             float angle = Mathf.Sin(normalized * Mathf.PI) * amplitude;
             m_enemyObject.localRotation = initialRot * Quaternion.Euler(0f, angle, 0f);
 
@@ -115,10 +115,10 @@ public class EnemyLaserBeam : MonoBehaviour
 
             if (hitInfo.collider.CompareTag("Player"))
             {
-                Player.DecreasePlayerHealth(100);
+                Player.DecreasePlayerHealth(1);
             }
         }
-        float t = Mathf.Clamp01(timer / 2f); 
+        float t = Mathf.Clamp01(timer / 2f);
         float currentLength = Mathf.Lerp(0, distance, t);
 
         // Apply scaling

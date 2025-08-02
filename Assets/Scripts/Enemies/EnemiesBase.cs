@@ -19,6 +19,6 @@ public class EnemiesBase : MonoBehaviour
 
     protected virtual void DamagePlayer()
     {
-        Player.DecreasePlayerHealth(100);
+        Player.DecreasePlayerHealth(1);
     }
 }

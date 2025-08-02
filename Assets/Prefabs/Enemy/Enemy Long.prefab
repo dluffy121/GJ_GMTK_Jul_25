@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enemyType: 2
-  DamageValue: 100
+  DamageValue: 1
 --- !u!1 &1518781996433450094
 GameObject:
   m_ObjectHideFlags: 0

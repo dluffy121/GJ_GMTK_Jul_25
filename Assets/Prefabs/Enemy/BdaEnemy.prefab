@@ -296,7 +296,7 @@ MonoBehaviour:
   beamTransform: {fileID: 3035936531363929894}
   beamSprite: {fileID: 9105084053092143588}
   maxDistance: 50
-  damagePerSecond: 10
+  damagePerSecond: 1
   hitMask:
     serializedVersion: 2
     m_Bits: 64

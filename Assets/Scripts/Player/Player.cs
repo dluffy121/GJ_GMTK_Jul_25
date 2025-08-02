@@ -24,6 +24,8 @@ public class Player : MonoBehaviour
 
     static Player Instance;
 
+    bool _isDead = false;
+
     public static PlayerMovementData PlayerMovData => Instance.m_playerMovData;
     public static Rigidbody PlayerRigidbody => Instance.m_rigidbody;
     public static Health PlayerHealth => Instance.m_playerHealth;
@@ -53,6 +55,7 @@ public class Player : MonoBehaviour
 
     private void OnPlayerDied()
     {
+        if (_isDead) return;
         GameManager.DestroyPlayer();
         m_controller.StopInputs();
         _deathAnim.gameObject.SetActive(true);
