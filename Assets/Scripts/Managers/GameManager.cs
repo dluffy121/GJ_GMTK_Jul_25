@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
 
     public static void ReloadScene()
     {
+        if (Instance.m_sceneManager.IsSceneReLoading) return;
         Instance.m_sceneManager.ReloadScene();
     }
     #endregion

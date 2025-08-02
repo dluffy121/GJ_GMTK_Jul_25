@@ -1,8 +1,6 @@
 using GJ_GMTK_Jul_2025;
-using Mono.Cecil;
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -25,6 +23,8 @@ public class Player : MonoBehaviour
     [SerializeField] Animator _shieldUp;
 
     static Player Instance;
+
+    bool _isDead = false;
 
     public static PlayerMovementData PlayerMovData => Instance.m_playerMovData;
     public static Rigidbody PlayerRigidbody => Instance.m_rigidbody;
@@ -55,6 +55,7 @@ public class Player : MonoBehaviour
 
     private void OnPlayerDied()
     {
+        if (_isDead) return;
         GameManager.DestroyPlayer();
         m_controller.StopInputs();
         _deathAnim.gameObject.SetActive(true);

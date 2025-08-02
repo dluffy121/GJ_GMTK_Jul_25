@@ -96,10 +96,7 @@ namespace GJ_GMTK_Jul_2025
                 if (targetState == EState.Moving) // Still moving
                     _moveTimer = _playerMovData.MoveCooldown;
                 else if (TryResetTimer(ref _moveTimer, _playerMovData.MoveCooldown))
-                {
                     targetState = EState.Moving;
-                    transform.forward = _tangent;
-                }
             }
             else
                 targetState = EState.Looping;
@@ -141,6 +138,7 @@ namespace GJ_GMTK_Jul_2025
         bool _isLoopingClockwise = true;
         Vector3 _loopOffsetPoint;
         Vector3 _tangent;
+        float _forwardMultiplier = 1;
         Vector3? _pullTarget = null;
         float _pullStrength = 0f;
         Vector3? _pushDirection = null;
@@ -166,6 +164,7 @@ namespace GJ_GMTK_Jul_2025
                     break;
                 case EState.Moving:
                     _rigidBody.position += _tangent * _playerMovData.BaseMoveSpeed;
+                    _rigidBody.rotation = Quaternion.LookRotation(_tangent);
                     break;
             }
         }
@@ -222,7 +221,10 @@ namespace GJ_GMTK_Jul_2025
             if (_currState == EState.Looping)
                 _isLoopingClockwise = !_isLoopingClockwise;
             else
-                transform.forward = -transform.forward;
+            {
+                _rigidBody.linearVelocity -= _rigidBody.linearVelocity;
+                _tangent = -_tangent;
+            }
         }
 
         #endregion
