@@ -7,5 +7,6 @@ public class DamagingEnemy : EnemiesBase
     protected override void DamagePlayer()
     {
         Player.DecreasePlayerHealth(DamageValue);
+        Destroy(gameObject);
     }
 }

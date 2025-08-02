@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5278340266322483353}
   - component: {fileID: 42401681474675757}
   - component: {fileID: 2095263929757887006}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -66,6 +66,8 @@ MonoBehaviour:
   m_playerHealth: {fileID: 3806816093386435881}
   m_playerMovData: {fileID: 11400000, guid: 1e670e2fed88af740ad3258f0ca20a15, type: 2}
   m_rigidbody: {fileID: 5278340266322483353}
+  m_playerCollider: {fileID: 0}
+  m_timeToMakePlayerBeAttacked: 0
 --- !u!114 &3806816093386435881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,7 +255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2847474166215400900}
   - component: {fileID: 6094822608659031472}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
