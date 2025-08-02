@@ -4,7 +4,7 @@ public class InstaKillEnemy : EnemiesBase
 {
     protected override void DamagePlayer()
     {
-        Player.DecreasePlayerHealth(Player.PlayerHealth.GetHealthVal());
+        Player.DecreasePlayerHealth(1);
         Destroy(gameObject);
     }
 }

@@ -5,7 +5,6 @@ public class EnemiesBase : MonoBehaviour
     [SerializeField]
     EEnemy m_enemyType;
 
-
     private void OnCollisionEnter(Collision other)
     {
         OnCollided(other);
@@ -13,13 +12,12 @@ public class EnemiesBase : MonoBehaviour
 
     protected virtual void OnCollided(Collision other)
     {
-        if(other.collider.CompareTag("Player"))
-        {
-            DamagePlayer();
-        }
+        if (!other.collider.CompareTag("Player"))
+            return;
+        DamagePlayer();
     }
 
-    protected virtual void DamagePlayer() 
+    protected virtual void DamagePlayer()
     {
         Player.DecreasePlayerHealth(100);
     }

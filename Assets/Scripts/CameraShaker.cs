@@ -4,7 +4,8 @@ using System.Collections;
 public class CameraShaker : MonoBehaviour
 {
     public float shakeDuration = 0.5f; // How long the shake lasts
-    public float shakeMagnitude = 0.1f; // How strong the shake is
+    public float shakeMagnitude = 0.01f; // How strong the shake is
+    public float shakeMagnitudeOnDeath = 0.1f; // How strong the shake is
     public float dampingSpeed = 1.0f; // How quickly the shake fades out
 
     private Vector3 originalPos;
@@ -23,13 +24,13 @@ public class CameraShaker : MonoBehaviour
 
     public void TriggerShake()
     {
-        if (!isShaking)
-        {
-            StartCoroutine(Shake());
-        }
+        float magnitude = shakeMagnitude;
+        if (Player.PlayerHealth.GetHealthVal() <= 0)
+            magnitude = shakeMagnitudeOnDeath;
+        StartCoroutine(Shake(magnitude));
     }
 
-    private IEnumerator Shake()
+    private IEnumerator Shake(float magnitude)
     {
         isShaking = true;
         float currentShakeDuration = shakeDuration;
@@ -37,13 +38,13 @@ public class CameraShaker : MonoBehaviour
         while (currentShakeDuration > 0)
         {
             // Calculate a random offset within a unit sphere, scaled by magnitude
-            Vector3 randomOffset = Random.insideUnitSphere * shakeMagnitude;
+            Vector3 randomOffset = Random.insideUnitSphere * magnitude;
 
             // Apply the offset only to X and Y for a typical 2D orthographic shake
             transform.localPosition = originalPos + new Vector3(randomOffset.x, randomOffset.y, 0f);
 
             // Reduce shake magnitude over time for damping
-            shakeMagnitude = Mathf.Lerp(shakeMagnitude, 0, Time.deltaTime * dampingSpeed);
+            magnitude = Mathf.Lerp(magnitude, 0, Time.deltaTime * dampingSpeed);
 
             currentShakeDuration -= Time.deltaTime;
             yield return null; // Wait for the next frame

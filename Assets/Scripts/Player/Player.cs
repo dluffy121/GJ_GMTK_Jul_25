@@ -2,6 +2,7 @@ using GJ_GMTK_Jul_2025;
 using Mono.Cecil;
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -18,6 +19,10 @@ public class Player : MonoBehaviour
     BoxCollider m_playerCollider;
     [SerializeField]
     float m_timeToMakePlayerBeAttacked;
+
+    [Header("Animations")]
+    [SerializeField] Animator _deathAnim;
+    [SerializeField] Animator _shieldUp;
 
     static Player Instance;
 
@@ -51,12 +56,19 @@ public class Player : MonoBehaviour
     private void OnPlayerDied()
     {
         GameManager.DestroyPlayer();
+        m_controller.StopInputs();
+        _deathAnim.gameObject.SetActive(true);
+        _deathAnim.Play("Death");
     }
-
 
     public static void IncreasePlayerHealth(float a_incHealth)
     {
         Instance.m_playerHealth.IncreaseHealth(a_incHealth);
+        if (Instance.m_playerHealth.GetHealthVal() == 2)
+        {
+            Instance._shieldUp.gameObject.SetActive(true);
+            Instance._shieldUp.Play("ShieldUp");
+        }
     }
     public static void IncreasePlayerHealthMultiplier(float a_incHealthMultiplier)
     {
@@ -65,8 +77,13 @@ public class Player : MonoBehaviour
     public static void DecreasePlayerHealth(float a_decHealth)
     {
         Instance.m_playerHealth.DecreaseHealth(a_decHealth);
+        if (Instance.m_playerHealth.GetHealthVal() >= 1)
+        {
+            Instance._shieldUp.StopPlayback();
+            Instance._shieldUp.gameObject.SetActive(false);
+        }
         OnPlayerDamaged?.Invoke();
-        if(Instance.m_playerHealth.GetHealthVal() > 0)
+        if (Instance.m_playerHealth.GetHealthVal() > 0)
             Instance.StartCoroutine(Instance.TurnOffPlayerCOllider());
     }
 
@@ -145,9 +162,9 @@ public class Player : MonoBehaviour
         m_controller.Teleport(target);
     }
 
-    internal void FlipLoop()
+    internal void Rebound()
     {
-        m_controller.FlipLoop();
+        m_controller.Rebound();
     }
 
     #endregion

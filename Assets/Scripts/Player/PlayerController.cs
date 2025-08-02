@@ -65,6 +65,7 @@ namespace GJ_GMTK_Jul_2025
             if (!_isTakingInput)
             {
                 _wantsToMove = true;
+                _moveTimer = 0;
                 return;
             }
 
@@ -95,7 +96,10 @@ namespace GJ_GMTK_Jul_2025
                 if (targetState == EState.Moving) // Still moving
                     _moveTimer = _playerMovData.MoveCooldown;
                 else if (TryResetTimer(ref _moveTimer, _playerMovData.MoveCooldown))
+                {
                     targetState = EState.Moving;
+                    transform.forward = _tangent;
+                }
             }
             else
                 targetState = EState.Looping;
@@ -139,6 +143,7 @@ namespace GJ_GMTK_Jul_2025
         Vector3 _tangent;
         Vector3? _pullTarget = null;
         float _pullStrength = 0f;
+        Vector3? _pushDirection = null;
 
         private void CalculateOffset()
         {
@@ -199,6 +204,10 @@ namespace GJ_GMTK_Jul_2025
 
         internal void ApplyPushEffect(Vector3 direction, float pushStrength)
         {
+            _pushDirection =
+                pushStrength <= 0
+                ? null
+                : direction * pushStrength;
         }
 
         internal void Teleport(Transform target)
@@ -208,9 +217,12 @@ namespace GJ_GMTK_Jul_2025
             CalculateOffset();
         }
 
-        internal void FlipLoop()
+        internal void Rebound()
         {
-            _isLoopingClockwise = !_isLoopingClockwise;
+            if (_currState == EState.Looping)
+                _isLoopingClockwise = !_isLoopingClockwise;
+            else
+                transform.forward = -transform.forward;
         }
 
         #endregion

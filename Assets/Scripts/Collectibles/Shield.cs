@@ -6,7 +6,7 @@ public class Shield : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Player.IncreasePlayerHealth(Player.PlayerHealth.GetHealthVal());
+            Player.IncreasePlayerHealth(1);
             Destroy(gameObject);
         }
     }
