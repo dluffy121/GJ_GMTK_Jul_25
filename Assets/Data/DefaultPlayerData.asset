@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc28a0e33d8ac64a81e33ce56cdac37, type: 3}
   m_Name: DefaultPlayerData
   m_EditorClassIdentifier: 
-  BaseLoopSpeed: 5
-  LoopOffset: 2
+  BaseLoopSpeed: 4
+  LoopOffset: 1.2
   LoopDirFlipCooldown: 0.1
   BaseMoveSpeed: 0.01
   MoveCooldown: 1
