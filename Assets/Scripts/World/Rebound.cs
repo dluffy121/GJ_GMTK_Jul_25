@@ -16,7 +16,7 @@ public class Rebound : MonoBehaviour
 
         if (_timer > 0) return;
 
-        _playerRef.FlipLoop();
+        _playerRef.Rebound();
     }
 
     void Update()

@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         Instance.m_sceneManager.LoadScene(INDEX__GAMEPLAY);
     }
 
-    public static void LoadGameplaySceneWithLevel(int a_levelNo) 
+    public static void LoadGameplaySceneWithLevel(int a_levelNo)
     {
         LevelManager.SetCurrentLevelIndex(a_levelNo);
         Instance.m_sceneManager.LoadScene(INDEX__GAMEPLAY);
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
 
     public static void DestroyPlayerWithoutCallBack()
     {
-        Destroy(Instance.CurrentPlayer.gameObject);
+        // Destroy(Instance.CurrentPlayer.gameObject);
         Instance.CurrentPlayer = null;
     }
     #endregion

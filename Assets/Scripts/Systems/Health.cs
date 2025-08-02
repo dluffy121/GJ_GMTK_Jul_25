@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField]
-    float m_health = 100;
+    [SerializeField] float m_health = 1;
 
     public Action OnHealthZero;
 
@@ -15,7 +14,7 @@ public class Health : MonoBehaviour
 
     public void IncreaseHealth(float a_incHealth)
     {
-        m_health += a_incHealth; 
+        m_health += a_incHealth;
     }
 
     public void IncreaseHealthMultiplier(float a_incHealthFactor)
