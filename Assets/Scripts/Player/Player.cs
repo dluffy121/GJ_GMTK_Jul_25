@@ -1,6 +1,7 @@
 using GJ_GMTK_Jul_2025;
 using Mono.Cecil;
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -13,6 +14,10 @@ public class Player : MonoBehaviour
     PlayerMovementData m_playerMovData;
     [SerializeField]
     Rigidbody m_rigidbody;
+    [SerializeField]
+    BoxCollider m_playerCollider;
+    [SerializeField]
+    float m_timeToMakePlayerBeAttacked;
 
     static Player Instance;
 
@@ -20,6 +25,7 @@ public class Player : MonoBehaviour
     public static Rigidbody PlayerRigidbody => Instance.m_rigidbody;
     public static Health PlayerHealth => Instance.m_playerHealth;
 
+    public static Action OnPlayerDamaged;
 
     private void Awake()
     {
@@ -35,6 +41,12 @@ public class Player : MonoBehaviour
         Instance = null;
     }
 
+    IEnumerator TurnOffPlayerCOllider()
+    {
+        m_playerCollider.enabled = false;
+        yield return new WaitForSeconds(m_timeToMakePlayerBeAttacked);
+        m_playerCollider.enabled = true;
+    }
 
     private void OnPlayerDied()
     {
@@ -53,7 +65,11 @@ public class Player : MonoBehaviour
     public static void DecreasePlayerHealth(float a_decHealth)
     {
         Instance.m_playerHealth.DecreaseHealth(a_decHealth);
+        OnPlayerDamaged?.Invoke();
+        if(Instance.m_playerHealth.GetHealthVal() > 0)
+            Instance.StartCoroutine(Instance.TurnOffPlayerCOllider());
     }
+
     public static void IncreasePlayerSpeed(float a_incSpeed)
     {
 

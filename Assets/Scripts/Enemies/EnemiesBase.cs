@@ -5,6 +5,7 @@ public class EnemiesBase : MonoBehaviour
     [SerializeField]
     EEnemy m_enemyType;
 
+
     private void OnCollisionEnter(Collision other)
     {
         OnCollided(other);
@@ -18,5 +19,8 @@ public class EnemiesBase : MonoBehaviour
         }
     }
 
-    protected virtual void DamagePlayer() { }
+    protected virtual void DamagePlayer() 
+    {
+        Player.DecreasePlayerHealth(100);
+    }
 }
