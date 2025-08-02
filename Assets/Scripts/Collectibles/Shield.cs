@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             Player.IncreasePlayerHealth(Player.PlayerHealth.GetHealthVal());
             Destroy(gameObject);
