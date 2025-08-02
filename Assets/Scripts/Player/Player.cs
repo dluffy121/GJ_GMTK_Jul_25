@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
     public static void IncreasePlayerHealth(float a_incHealth)
     {
         Instance.m_playerHealth.IncreaseHealth(a_incHealth);
-        if (Instance.m_playerHealth.GetHealthVal() == 2)
+        if (Instance.m_playerHealth.GetHealthVal() > 1)
         {
             Instance._shieldUp.gameObject.SetActive(true);
             Instance._shieldUp.Play("ShieldUp");
