@@ -1,62 +1,56 @@
 using UnityEngine;
 using System.Collections;
-using UnityEditor.Rendering.LookDev;
 
 public class CameraShaker : MonoBehaviour
 {
+    public float shakeDuration = 0.5f; // How long the shake lasts
+    public float shakeMagnitude = 0.1f; // How strong the shake is
+    public float dampingSpeed = 1.0f; // How quickly the shake fades out
+
     private Vector3 originalPos;
-    private Coroutine shakeRoutine;
+    private bool isShaking = false;
 
     void Awake()
     {
         originalPos = transform.localPosition;
-    }
-
-    private void Start()
-    {
-        Player.OnPlayerDamaged += CameraShake;
+        Player.OnPlayerDamaged += TriggerShake;
     }
 
     private void OnDestroy()
     {
-        Player.OnPlayerDamaged += CameraShake;
+        Player.OnPlayerDamaged -= TriggerShake;
     }
 
-    private void CameraShake()
+    public void TriggerShake()
     {
-        Shake(1,10);
-    }
-
-    /// <summary>
-    /// Shakes the camera for a given duration and strength.
-    /// </summary>
-    /// <param name="duration">How long to shake (seconds)</param>
-    /// <param name="magnitude">How strong the shake is</param>
-    public void Shake(float duration, float magnitude)
-    {
-        if (shakeRoutine != null)
-            StopCoroutine(shakeRoutine);
-
-        shakeRoutine = StartCoroutine(ShakeRoutine(duration, magnitude));
-    }
-
-    private IEnumerator ShakeRoutine(float duration, float magnitude)
-    {
-        float elapsed = 0f;
-
-        while (elapsed < duration)
+        if (!isShaking)
         {
-            elapsed += Time.deltaTime;
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
+            StartCoroutine(Shake());
+        }
+    }
 
-            transform.localPosition = originalPos + new Vector3(x, y, 0);
+    private IEnumerator Shake()
+    {
+        isShaking = true;
+        float currentShakeDuration = shakeDuration;
 
-            yield return null;
+        while (currentShakeDuration > 0)
+        {
+            // Calculate a random offset within a unit sphere, scaled by magnitude
+            Vector3 randomOffset = Random.insideUnitSphere * shakeMagnitude;
+
+            // Apply the offset only to X and Y for a typical 2D orthographic shake
+            transform.localPosition = originalPos + new Vector3(randomOffset.x, randomOffset.y, 0f);
+
+            // Reduce shake magnitude over time for damping
+            shakeMagnitude = Mathf.Lerp(shakeMagnitude, 0, Time.deltaTime * dampingSpeed);
+
+            currentShakeDuration -= Time.deltaTime;
+            yield return null; // Wait for the next frame
         }
 
-        // Reset camera to original position
+        // Reset camera position and magnitude after shake
         transform.localPosition = originalPos;
-        shakeRoutine = null;
+        isShaking = false;
     }
 }
