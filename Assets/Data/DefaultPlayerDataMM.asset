@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DefaultPlayerDataMM
   m_EditorClassIdentifier: 
   BaseLoopSpeed: 4
-  LoopOffset: 4
+  LoopOffset: 1.7
   LoopDirFlipCooldown: 0.1
   BaseMoveSpeed: 0.01
   MoveCooldown: 1
