@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shakeDuration: 2
-  shakeMagnitude: 0.1
+  shakeMagnitude: 2
   shakeMagnitudeOnDeath: 0.5
   dampingSpeed: 2
 --- !u!1 &410087039
