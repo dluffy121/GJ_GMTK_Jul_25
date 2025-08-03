@@ -56,10 +56,11 @@ public class Player : MonoBehaviour
     private void OnPlayerDied()
     {
         if (_isDead) return;
-        GameManager.DestroyPlayer();
+        m_playerCollider.enabled = false;
         m_controller.StopInputs();
         _deathAnim.gameObject.SetActive(true);
         _deathAnim.Play("Death");
+        GameManager.DestroyPlayer();
     }
 
     public static void IncreasePlayerHealth(float a_incHealth)
