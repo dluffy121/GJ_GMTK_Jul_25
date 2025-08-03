@@ -22,6 +22,17 @@ public class Player : MonoBehaviour
     [SerializeField] Animator _deathAnim;
     [SerializeField] Animator _shieldUp;
 
+    [Header("SFX")]
+    [SerializeField] AudioSource _as;
+    [SerializeField] AudioClip _shieldUpSFX;
+    [SerializeField] float _shieldUpSFXVol = 1;
+    [SerializeField] AudioClip _deathSFX;
+    [SerializeField] float _deathSFXVol = 1;
+    [SerializeField] AudioClip _starCollectSFX;
+    [SerializeField] float _starCollectSFXVol = 1;
+    [SerializeField] AudioClip _reboundSFX;
+    [SerializeField] float _reboundSFXVol = 1;
+
     static Player Instance;
 
     bool _isDead = false;
@@ -39,9 +50,12 @@ public class Player : MonoBehaviour
     private void Start()
     {
         m_playerHealth.OnHealthZero += OnPlayerDied;
+        LevelManager.OnStarCollect += OnStarCollected;
     }
+
     private void OnDestroy()
     {
+        LevelManager.OnStarCollect -= OnStarCollected;
         m_playerHealth.OnHealthZero -= OnPlayerDied;
         Instance = null;
     }
@@ -60,6 +74,7 @@ public class Player : MonoBehaviour
         m_controller.StopInputs();
         _deathAnim.gameObject.SetActive(true);
         _deathAnim.Play("Death");
+        _as.PlayOneShot(_deathSFX, _deathSFXVol);
         GameManager.DestroyPlayer();
     }
 
@@ -70,6 +85,7 @@ public class Player : MonoBehaviour
         {
             Instance._shieldUp.gameObject.SetActive(true);
             Instance._shieldUp.Play("ShieldUp");
+            Instance._as.PlayOneShot(Instance._shieldUpSFX, Instance._shieldUpSFXVol);
         }
     }
     public static void IncreasePlayerHealthMultiplier(float a_incHealthMultiplier)
@@ -141,6 +157,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnStarCollected()
+    {
+        _as.PlayOneShot(_starCollectSFX, _starCollectSFXVol);
+    }
+
     #region World Interactions
 
     internal void StopInputs()
@@ -159,13 +180,14 @@ public class Player : MonoBehaviour
         m_controller.ApplyPushEffect(direction, pushStrength);
     }
 
-    internal void Teleport(Transform target)
+    internal void Teleport(Transform target, float forwardOffset)
     {
-        m_controller.Teleport(target);
+        m_controller.Teleport(target, forwardOffset);
     }
 
     internal void Rebound()
     {
+        _as.PlayOneShot(_reboundSFX, _reboundSFXVol);
         m_controller.Rebound();
     }
 
