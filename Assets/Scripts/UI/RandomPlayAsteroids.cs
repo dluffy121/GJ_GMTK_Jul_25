@@ -19,7 +19,7 @@ public class RandomPlayAsteroids : MonoBehaviour
         yield return new WaitForSeconds(m_waitForTimeBeforePlay);
         while (true) 
         {
-            int l_randomNo = Random.Range(0, m_asteroidPairs.Length - 1);
+            int l_randomNo = Random.Range(0, m_asteroidPairs.Length);
             m_asteroidPairs[l_randomNo].SetActive(true);
             for (int l_index = 0; l_index < m_asteroidPairs[l_randomNo].transform.childCount; l_index++)
             {
