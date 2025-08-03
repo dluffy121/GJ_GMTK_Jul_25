@@ -58,4 +58,6 @@ MonoBehaviour:
   - {fileID: 5588267662891022208, guid: 950742f684c014947b814ff3e0fee5ea, type: 3}
   - {fileID: 5588267662891022208, guid: 1fe191e5d2cf3b047ae1b80798a25ce5, type: 3}
   - {fileID: 5588267662891022208, guid: eabeaf754c5a64c498114ff4dafeb1b7, type: 3}
+  - {fileID: 5588267662891022208, guid: 49568b9c790dfb140bef17cc1eda4e02, type: 3}
+  - {fileID: 5588267662891022208, guid: 3440c9965d9bee54fa404c9118d80d56, type: 3}
   m_timeBeforeReloading: 2
