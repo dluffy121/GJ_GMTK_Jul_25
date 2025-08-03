@@ -156,7 +156,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HOLD "LEFT" MOUSE => EXIT LOOP
+  m_text: HOLD <sprite=0> => EXIT LOOP
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2fbb5c847bbdfa84795a32d52bce714b, type: 2}
   m_sharedMaterial: {fileID: -4131329939671463226, guid: 2fbb5c847bbdfa84795a32d52bce714b, type: 2}
@@ -175,7 +175,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 6cda37c97f0ff2a448ae7b261e92bd64, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -292,7 +292,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CLICK "RIGHT" MOUSE => CHANGE LOOP DIRECTION
+  m_text: CLICK <sprite=0> => CHANGE LOOP DIRECTION
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2fbb5c847bbdfa84795a32d52bce714b, type: 2}
   m_sharedMaterial: {fileID: -4131329939671463226, guid: 2fbb5c847bbdfa84795a32d52bce714b, type: 2}
@@ -311,7 +311,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: c15c3745cba0bc142b06ae466503e2af, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
