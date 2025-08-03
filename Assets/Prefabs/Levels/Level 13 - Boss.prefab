@@ -55,6 +55,7 @@ Transform:
   - {fileID: 4374508116760646710}
   - {fileID: 915265999179492486}
   - {fileID: 748153530767175509}
+  - {fileID: 3332321210684430163}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5588267662891022208
@@ -71,6 +72,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_playerPos: {fileID: 508994939422858903}
   m_starsToCompleteLevel: 8
+  _disableOnComplete:
+  - {fileID: 2809586731223332767}
   _UIbossLevel: {fileID: 5723963492318806026}
   _UIFadeDuration: 1
   _levelMusicIndex: 2
@@ -908,6 +911,57 @@ Animator:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7886783376426917204, guid: ba5347d24f62bf8469f3ab17872f57bc, type: 3}
   m_PrefabInstance: {fileID: 3976228414558450354}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4015469257381495578
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1770430385977373537}
+    m_Modifications:
+    - target: {fileID: 1244251599586358405, guid: 0ae5b14d179f1aa47bfe2bdd28b57dc3, type: 3}
+      propertyPath: m_Name
+      value: LevelText Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 1839465909176079433, guid: 0ae5b14d179f1aa47bfe2bdd28b57dc3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1839465909176079433, guid: 0ae5b14d179f1aa47bfe2bdd28b57dc3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1839465909176079433, guid: 0ae5b14d179f1aa47bfe2bdd28b57dc3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1839465909176079433, guid: 0ae5b14d179f1aa47bfe2bdd28b57dc3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1839465909176079433, guid: 0ae5b14d179f1aa47bfe2bdd28b57dc3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417597616591853140, guid: 0ae5b14d179f1aa47bfe2bdd28b57dc3, type: 3}
+      propertyPath: m_text
+      value: Level 13
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0ae5b14d179f1aa47bfe2bdd28b57dc3, type: 3}
+--- !u!1 &2809586731223332767 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1244251599586358405, guid: 0ae5b14d179f1aa47bfe2bdd28b57dc3, type: 3}
+  m_PrefabInstance: {fileID: 4015469257381495578}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &3332321210684430163 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1839465909176079433, guid: 0ae5b14d179f1aa47bfe2bdd28b57dc3, type: 3}
+  m_PrefabInstance: {fileID: 4015469257381495578}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4314571808144504372
 PrefabInstance:

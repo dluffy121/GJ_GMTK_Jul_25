@@ -161,8 +161,9 @@ public class LevelManager : MonoBehaviour
     public static void LevelCompleted()
     {
         Instance.m_currentLevelIndex++;
+        Instance.m_currLevel.Complete();
         GameManager.DestroyPlayerWithoutCallBack();
-        if(!PlayerPrefs.HasKey(UNLOCKED_LEVEL) || PlayerPrefs.GetInt(UNLOCKED_LEVEL) < Instance.m_currentLevelIndex)
+        if (!PlayerPrefs.HasKey(UNLOCKED_LEVEL) || PlayerPrefs.GetInt(UNLOCKED_LEVEL) < Instance.m_currentLevelIndex)
             PlayerPrefs.SetInt(UNLOCKED_LEVEL, Instance.m_currentLevelIndex);
         Instance.StartCoroutine(Instance.WaitToCompleteLevel());
     }

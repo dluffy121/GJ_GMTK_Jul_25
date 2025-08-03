@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Levels : MonoBehaviour
@@ -6,6 +8,7 @@ public class Levels : MonoBehaviour
     private Transform m_playerPos;
     [SerializeField]
     int m_starsToCompleteLevel;
+    [SerializeField] internal List<GameObject> _disableOnComplete;
     [SerializeField]
     public CanvasGroup _UIbossLevel;
     [SerializeField]
@@ -39,13 +42,19 @@ public class Levels : MonoBehaviour
         {
             GameManager.LoadMainMenuScene();
         }
-        else if(Input.GetKeyDown(KeyCode.R))
+        else if (Input.GetKeyDown(KeyCode.R))
         {
             GameManager.ReloadScene();
         }
-        else if(Input.GetKeyDown(KeyCode.F))
+        else if (Input.GetKeyDown(KeyCode.F))
         {
             LevelManager.LevelCompletedWithoutTimeWait();
         }
+    }
+
+    internal void Complete()
+    {
+        foreach (var item in _disableOnComplete)
+            item.SetActive(false);
     }
 }
