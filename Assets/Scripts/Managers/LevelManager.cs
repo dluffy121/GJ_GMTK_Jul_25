@@ -23,7 +23,7 @@ public class LevelManager : MonoBehaviour
         if (PlayerPrefs.HasKey(UNLOCKED_LEVEL))
         {
             Instance.m_currentLevelIndex = PlayerPrefs.GetInt(UNLOCKED_LEVEL);
-            if(Instance.m_currentLevelIndex + 1 > Instance.m_levels.Length)
+            if (Instance.m_currentLevelIndex + 1 > Instance.m_levels.Length)
                 Instance.m_currentLevelIndex = 0;
         }
         else
@@ -66,9 +66,42 @@ public class LevelManager : MonoBehaviour
 
     private void InstantiateLevel(int a_loadLevel)
     {
-        m_currLevel = Instantiate( m_levels[a_loadLevel]);
+        m_currLevel = Instantiate(m_levels[a_loadLevel]);
+        if (m_currLevel._UIbossLevel)
+        {
+            m_currLevel._UIbossLevel.gameObject.SetActive(true);
+            StartCoroutine(LerpNHide(m_currLevel._UIbossLevel, m_currLevel._UIFadeDuration));
+        }
         GameManager.InstantiatePlayer(m_currLevel.playerPos);
     }
+
+    private IEnumerator LerpNHide(CanvasGroup uIbossLevel, float fadeTime)
+    {
+        uIbossLevel.alpha = 1;
+        float totalTime = fadeTime;
+        while (fadeTime > 0)
+        {
+            uIbossLevel.alpha = Mathf.Lerp(1, 0, fadeTime / totalTime);
+            fadeTime -= Time.deltaTime;
+
+            yield return null;
+        }
+
+        uIbossLevel.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.05f);
+
+        uIbossLevel.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+
+        uIbossLevel.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.1f);
+
+        uIbossLevel.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.05f);
+
+        uIbossLevel.gameObject.SetActive(false);
+    }
+
     private void LoadLevel()
     {
         InstantiateLevel(m_currentLevelIndex);
