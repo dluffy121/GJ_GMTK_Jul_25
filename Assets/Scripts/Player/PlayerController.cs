@@ -219,6 +219,8 @@ namespace GJ_GMTK_Jul_2025
         {
             transform.position = target.position + target.forward * forwardOffset;
             transform.forward = target.forward;
+            if (_currState == EState.Moving)
+                _tangent = target.forward;
             CalculateOffset();
         }
 
