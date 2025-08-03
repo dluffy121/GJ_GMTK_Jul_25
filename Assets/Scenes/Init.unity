@@ -684,41 +684,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6067097435145049491, guid: 176e733d56af74844a8235746a9a57a6, type: 3}
+      propertyPath: m_parentCanvas
+      value: 
+      objectReference: {fileID: 612191716}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 758415119317768791, guid: 176e733d56af74844a8235746a9a57a6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4492617456372872203}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 176e733d56af74844a8235746a9a57a6, type: 3}
 --- !u!4 &4492617456372872201 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1893723223433678537, guid: 176e733d56af74844a8235746a9a57a6, type: 3}
   m_PrefabInstance: {fileID: 4492617456372872200}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &4492617456372872202 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 758415119317768791, guid: 176e733d56af74844a8235746a9a57a6, type: 3}
+--- !u!114 &4492617456372872203 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6067097435145049491, guid: 176e733d56af74844a8235746a9a57a6, type: 3}
   m_PrefabInstance: {fileID: 4492617456372872200}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4492617456372872203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4492617456372872202}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e05f474889be5a4094d37efea941753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_parentCanvas: {fileID: 612191716}
-  m_UIMainMenu: {fileID: 2408185101648024965, guid: e2064ce05a8ce66428987420e71071a8, type: 3}
-  m_UILevelSelection: {fileID: 5726214830460733466, guid: 274692c21a9ce1d4ebeee39ffc39097f, type: 3}
-  m_UIWin: {fileID: 6834852797302971157, guid: a6f10d2dea232f94daee666c50c6f33a, type: 3}
-  m_UILoss: {fileID: 6300458845278277822, guid: dddd4abb48634084b851f5ada5f087d8, type: 3}
 --- !u!1001 &7316007341308506803
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -893,14 +883,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7371118622542647321, guid: 53b11429e8cc3bb4694951838d6e25ea, type: 3}
-      propertyPath: m_timeBeforeReloading
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7371118622542647321, guid: 53b11429e8cc3bb4694951838d6e25ea, type: 3}
-      propertyPath: 'm_levels.Array.data[0]'
-      value: 
-      objectReference: {fileID: 5588267662891022208, guid: 8548873e2efaddf44aa7db0c087e71e0, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

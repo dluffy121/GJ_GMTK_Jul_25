@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     GameSceneManager m_sceneManager;
     [SerializeField]
     UIManager m_uiManager;
+    [SerializeField] AudioSource _sfxSource;
+    [SerializeField] AudioClip[] _btnClickSFX;
 
     static GameManager Instance;
 
@@ -148,6 +150,11 @@ public class GameManager : MonoBehaviour
     public static void StartMusic(int index)
     {
         Instance.Int_StartMusic(index);
+    }
+
+    public static void PlayBtnClickSFX()
+    {
+        Instance._sfxSource.PlayOneShot(Instance._btnClickSFX[UnityEngine.Random.Range(0, Instance._btnClickSFX.Length)]);
     }
 
     private void Int_StartMusic(int index)
