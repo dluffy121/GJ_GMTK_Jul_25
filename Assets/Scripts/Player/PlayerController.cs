@@ -209,9 +209,9 @@ namespace GJ_GMTK_Jul_2025
                 : direction * pushStrength;
         }
 
-        internal void Teleport(Transform target)
+        internal void Teleport(Transform target, float forwardOffset)
         {
-            transform.position = target.position;
+            transform.position = target.position + target.forward * forwardOffset;
             transform.forward = target.forward;
             CalculateOffset();
         }

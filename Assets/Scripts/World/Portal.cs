@@ -4,6 +4,11 @@ public class Portal : MonoBehaviour
 {
     [SerializeField] Portal _out;
     [SerializeField] float _cooldown = 1;
+    [SerializeField] float _forwardOffset = 0;
+
+    [SerializeField] AudioSource _as;
+    [SerializeField] AudioClip _onEnterSFX;
+    [SerializeField] float _onEnterSFXVol;
 
     Player _playerRef;
     float _timer = 0;
@@ -17,7 +22,8 @@ public class Portal : MonoBehaviour
 
         if (_timer > 0) return;
 
-        _playerRef.Teleport(_out.transform);
+        _as.PlayOneShot(_onEnterSFX, _onEnterSFXVol);
+        _playerRef.Teleport(_out.transform, _out._forwardOffset);
         _timer = _cooldown;
         _out._timer = _cooldown;
     }
