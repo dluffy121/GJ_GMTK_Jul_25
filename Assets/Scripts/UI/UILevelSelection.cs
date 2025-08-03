@@ -1,9 +1,28 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GJ_GMTK_Jul_2025
 {
     public class UILevelSelection : MonoBehaviour
     {
+        [SerializeField]
+        LevelsUI[] m_goLevels;
+
+        private void Start()
+        {
+            for(int index =0; index < m_goLevels.Length; index++)
+            {
+                if (PlayerPrefs.HasKey(LevelManager.UNLOCKED_LEVEL))
+                {
+                    if (index <= PlayerPrefs.GetInt(LevelManager.UNLOCKED_LEVEL))
+                    {
+                        m_goLevels[index].m_button.interactable = true;
+                        m_goLevels[index].m_image.SetActive(false);
+                    }
+                }
+            }
+        }
         public void OnBtnClicked_Level(int a_level)
         {
             GameManager.PlayBtnClickSFX();
@@ -16,5 +35,12 @@ namespace GJ_GMTK_Jul_2025
             GameManager.ShowMainMenuUI();
         }
 
+    }
+
+    [Serializable]
+    public struct LevelsUI
+    {
+        public Button m_button;
+        public GameObject m_image;
     }
 }

@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
 
     public static int GetCurrentLevel() => Instance.m_currentLevelIndex;
     public static void SetCurrentLevelIndex(int a_levelNo) => Instance.m_currentLevelIndex = a_levelNo;
+    public static bool IsLastLevel() => (Instance.m_currentLevelIndex == Instance.m_levels.Length - 1);
     public static void SetCurrentLevelAsLastUnlocked()
     {
         if (PlayerPrefs.HasKey(UNLOCKED_LEVEL))
@@ -30,7 +31,7 @@ public class LevelManager : MonoBehaviour
             Instance.m_currentLevelIndex = 0;
     }
 
-    const string UNLOCKED_LEVEL = "UnlockedLevel";
+    public const string UNLOCKED_LEVEL = "UnlockedLevel";
 
     private void Awake()
     {
@@ -145,11 +146,24 @@ public class LevelManager : MonoBehaviour
             GameManager.LoadMainMenuScene();
     }
 
+    public static void LevelCompletedWithoutTimeWait()
+    {
+        Instance.m_currentLevelIndex++;
+        GameManager.DestroyPlayerWithoutCallBack();
+        if (!PlayerPrefs.HasKey(UNLOCKED_LEVEL) || PlayerPrefs.GetInt(UNLOCKED_LEVEL) < Instance.m_currentLevelIndex)
+            PlayerPrefs.SetInt(UNLOCKED_LEVEL, Instance.m_currentLevelIndex);
+        if (Instance.m_currentLevelIndex < Instance.m_levels.Length)
+            GameManager.ReloadScene();
+        else
+            GameManager.LoadMainMenuScene();
+    }
+
     public static void LevelCompleted()
     {
         Instance.m_currentLevelIndex++;
         GameManager.DestroyPlayerWithoutCallBack();
-        PlayerPrefs.SetInt(UNLOCKED_LEVEL, Instance.m_currentLevelIndex);
+        if(!PlayerPrefs.HasKey(UNLOCKED_LEVEL) || PlayerPrefs.GetInt(UNLOCKED_LEVEL) < Instance.m_currentLevelIndex)
+            PlayerPrefs.SetInt(UNLOCKED_LEVEL, Instance.m_currentLevelIndex);
         Instance.StartCoroutine(Instance.WaitToCompleteLevel());
     }
 

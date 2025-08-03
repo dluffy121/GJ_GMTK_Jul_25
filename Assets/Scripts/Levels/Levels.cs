@@ -33,4 +33,19 @@ public class Levels : MonoBehaviour
     {
         GameManager.StartMusic(_levelMusicIndex);
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameManager.LoadMainMenuScene();
+        }
+        else if(Input.GetKeyDown(KeyCode.R))
+        {
+            GameManager.ReloadScene();
+        }
+        else if(Input.GetKeyDown(KeyCode.F))
+        {
+            LevelManager.LevelCompletedWithoutTimeWait();
+        }
+    }
 }

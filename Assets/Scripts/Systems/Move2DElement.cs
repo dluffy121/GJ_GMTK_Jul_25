@@ -12,16 +12,15 @@ public class Move2DElement : MonoBehaviour
     [SerializeField]
     float duration;
     [SerializeField]
-    float m_waitForTimeBeforePlay;
+    GameObject m_gameObject;
 
-    private void Start()
+    private void OnEnable()
     {
         StartCoroutine(MoveElement());
     }
 
     public IEnumerator MoveElement()
     {
-        yield return new WaitForSeconds(m_waitForTimeBeforePlay);
         float elapsed = 0f;
         while (elapsed < duration)
         {
@@ -32,6 +31,9 @@ public class Move2DElement : MonoBehaviour
             yield return null;
         }
         rect.anchoredPosition = m_endPos;
-        Destroy(gameObject);
+        GameObject l_asteroidblast = Instantiate(m_gameObject, transform.parent);
+        ((RectTransform)l_asteroidblast.transform).anchoredPosition = rect.anchoredPosition;
+        gameObject.SetActive(false);
+        Destroy(l_asteroidblast, 1);
     }
 }
