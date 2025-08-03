@@ -305,6 +305,15 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.18410231
       - serializedVersion: 3
+        time: 0.18642887
+        value: 0.07875261
+        inSlope: -0.07792212
+        outSlope: -0.07792212
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.17117035
+      - serializedVersion: 3
         time: 1
         value: 0
         inSlope: 0
@@ -318,7 +327,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.42745098, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 0.009424087, b: 0, a: 1}
       key1: {r: 0.05098039, g: 0.70396465, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -343,7 +352,7 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0

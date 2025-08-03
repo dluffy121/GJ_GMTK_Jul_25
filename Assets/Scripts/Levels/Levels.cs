@@ -10,6 +10,8 @@ public class Levels : MonoBehaviour
     public CanvasGroup _UIbossLevel;
     [SerializeField]
     public float _UIFadeDuration;
+    [SerializeField]
+    public int _levelMusicIndex;
 
     public Transform playerPos => m_playerPos;
     public int StarsToCompleteLevel => m_starsToCompleteLevel;
@@ -27,4 +29,8 @@ public class Levels : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        GameManager.StartMusic(_levelMusicIndex);
+    }
 }

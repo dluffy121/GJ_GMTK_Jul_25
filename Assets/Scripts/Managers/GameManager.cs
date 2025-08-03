@@ -136,4 +136,34 @@ public class GameManager : MonoBehaviour
         Application.Quit();
 #endif
     }
+
+    #region Sound
+
+    [SerializeField] AudioClip[] m_clips;
+    [SerializeField] float[] m_volumes;
+
+    private AudioSource m_currentAS;
+    private int m_currentClip = -1;
+
+    public static void StartMusic(int index)
+    {
+        Instance.Int_StartMusic(index);
+    }
+
+    private void Int_StartMusic(int index)
+    {
+        m_currentAS ??= GetComponent<AudioSource>();
+
+        if (m_currentClip != index)
+        {
+            m_currentAS.Stop();
+            m_currentAS.clip = m_clips[index];
+            m_currentAS.Play();
+        }
+
+        m_currentAS.volume = m_volumes[index];
+        m_currentClip = index;
+    }
+
+    #endregion
 }
