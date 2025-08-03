@@ -181,6 +181,15 @@ MonoBehaviour:
   m_timeToMakePlayerBeAttacked: 0
   _deathAnim: {fileID: 3525373712008881857}
   _shieldUp: {fileID: 7750300861434309568}
+  _as: {fileID: 6163725451355073974}
+  _shieldUpSFX: {fileID: 8300000, guid: f514ba28a6413744ebf53e35ab5ba07f, type: 3}
+  _shieldUpSFXVol: 1
+  _deathSFX: {fileID: 8300000, guid: 482ebcb66da695d479f2f69ba28dea1d, type: 3}
+  _deathSFXVol: 1
+  _starCollectSFX: {fileID: 8300000, guid: 8db1eb8c2a9668146a24851d989371ea, type: 3}
+  _starCollectSFXVol: 1
+  _reboundSFX: {fileID: 8300000, guid: 2bc35ca9c4e9fcc4390cc4cc4b7207ee, type: 3}
+  _reboundSFXVol: 1
 --- !u!114 &3806816093386435881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,10 +385,10 @@ AudioSource:
   m_GameObject: {fileID: 4912436298255659352}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 598a138ee78fe604187b5d927b27b373, type: 2}
+  OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

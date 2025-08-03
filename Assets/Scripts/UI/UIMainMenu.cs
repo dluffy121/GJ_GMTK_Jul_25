@@ -13,10 +13,12 @@ namespace GJ_GMTK_Jul_2025
 
         public void OnBtnClicked_Start()
         {
+            GameManager.PlayBtnClickSFX();
             GameManager.LoadGameplaySceneWithLastUnlockedLevel();
         }
         public void OnBtnClicked_Levels()
         {
+            GameManager.PlayBtnClickSFX();
             GameManager.ShowLevelSelectionUI();
             GameManager.HideMainMenuUI();
         }
