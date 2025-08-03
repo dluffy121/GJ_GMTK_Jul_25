@@ -7,6 +7,10 @@ public class EnemyShooter : MonoBehaviour
     public Transform firePoint;
     public float fireRate = 1f;
 
+    [SerializeField] AudioSource _as;
+    [SerializeField] AudioClip _hitSFX;
+    [SerializeField] float _hitSFXVol = 1;
+
     private float nextFireTime;
 
     private void Start()
@@ -34,6 +38,7 @@ public class EnemyShooter : MonoBehaviour
 
     private void ShootLaser()
     {
+        _as.PlayOneShot(_hitSFX, _hitSFXVol);
         Instantiate(laserPrefab, firePoint.position, firePoint.rotation);
     }
 }

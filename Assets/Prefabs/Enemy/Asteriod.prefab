@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7886783376426917204}
   - component: {fileID: 8498799008553464957}
   - component: {fileID: 296436544384582109}
+  - component: {fileID: 3080169537815578713}
   m_Layer: 0
   m_Name: Asteriod
   m_TagString: Untagged
@@ -69,6 +70,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enemyType: 2
   DamageValue: 1
+  _as: {fileID: 0}
+  _hitSFX: {fileID: 0}
+  _hitSFXVol: 1
+--- !u!114 &3080169537815578713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478213340055235949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2a1dd96bae21af4a890bb7108950e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1518781996433450094
 GameObject:
   m_ObjectHideFlags: 0

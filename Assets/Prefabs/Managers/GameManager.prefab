@@ -60,7 +60,7 @@ MonoBehaviour:
   m_volumes:
   - 1
   - 0.2
-  - 0.2
+  - 0.1
 --- !u!82 &4665879551408222034
 AudioSource:
   m_ObjectHideFlags: 0

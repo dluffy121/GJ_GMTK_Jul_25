@@ -18,6 +18,10 @@ public class EnemyLaserBeam : MonoBehaviour
     public float fireDuration = 4f;
     public float restDuration = 1f;
 
+    [SerializeField] AudioSource _as;
+    [SerializeField] AudioClip _hitSFX;
+    [SerializeField] float _hitSFXVol = 1;
+
     private float timer;
     private bool isFiring;
     private float firingTime;
@@ -123,5 +127,7 @@ public class EnemyLaserBeam : MonoBehaviour
 
         // Apply scaling
         beamTransform.localScale = new Vector3(currentLength, initialScale.y, initialScale.z);
+
+        _as.PlayOneShot(_hitSFX, _hitSFXVol);
     }
 }
