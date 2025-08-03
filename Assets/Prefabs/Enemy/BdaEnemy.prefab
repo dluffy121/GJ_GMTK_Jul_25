@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 3185976792046797990}
   - component: {fileID: 2999890165224553893}
   - component: {fileID: 4171591098698627513}
+  - component: {fileID: 5472027898808348340}
   m_Layer: 0
   m_Name: BdaEnemy
   m_TagString: Untagged
@@ -379,6 +380,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5472027898808348340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6010671692549773612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be957848c7c713e41a5838a0e1ca0538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_enemyType: 2
+  DamageValue: 1
+  _hitSFX: {fileID: 0}
+  _hitSFXVol: 1
 --- !u!1 &8790268806983218537
 GameObject:
   m_ObjectHideFlags: 0
