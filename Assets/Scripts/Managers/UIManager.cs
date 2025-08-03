@@ -73,7 +73,7 @@ public class UIManager : MonoBehaviour
     {
         UIMainMenu.SetActive(true);
     }
-    public void HideMainMenuUI() 
+    public void HideMainMenuUI()
     {
         UIMainMenu.SetActive(false);
     }
