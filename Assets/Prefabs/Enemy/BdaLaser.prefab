@@ -217,9 +217,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7562349125936481373}
   - component: {fileID: 3185976792046797990}
-  - component: {fileID: 2999890165224553893}
+  - component: {fileID: 7894887429981064263}
   m_Layer: 0
-  m_Name: BdaEnemy
+  m_Name: BdaLaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -263,7 +263,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2999890165224553893
+--- !u!114 &7894887429981064263
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -272,12 +272,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 6010671692549773612}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edfb2f48e3148d7438e3e88827835a85, type: 3}
+  m_Script: {fileID: 11500000, guid: 8be391ba9623f3d40ba471994984f577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserPrefab: {fileID: 3686410918742104682, guid: 2f38269642a058d4faacccdfd9675f0a, type: 3}
-  firePoint: {fileID: 7562349125936481373}
-  fireRate: 1
+  m_enemyObject: {fileID: 7562349125936481373}
+  firePoint: {fileID: 4170096320759301851}
+  beamTransform: {fileID: 3035936531363929894}
+  beamSprite: {fileID: 9105084053092143588}
+  maxDistance: 50
+  damagePerSecond: 1
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_aboutToLaunch: {fileID: 3497837657524821660}
+  fireDuration: 2
+  restDuration: 1
+  amplitude: 20
+  speed: 0.5
+  moveDuration: 3
 --- !u!1 &8790268806983218537
 GameObject:
   m_ObjectHideFlags: 0
