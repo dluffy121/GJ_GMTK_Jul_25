@@ -1,5 +1,9 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
+using System.Collections;
+
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -15,9 +19,10 @@ namespace GJ_GMTK_Jul_2025
 
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField] PlayerMovementData _playerMovData;
+
         bool _isTakingInput = true;
         Rigidbody _rigidBody;
-        PlayerMovementData _playerMovData;
 
 #if UNITY_EDITOR
 
@@ -40,8 +45,9 @@ namespace GJ_GMTK_Jul_2025
 
         private void Start()
         {
-            _playerMovData = Player.PlayerMovData;
-            _rigidBody = Player.PlayerRigidbody;
+            _playerMovData ??= Player.PlayerMovData;
+            _rigidBody ??= Player.PlayerRigidbody;
+            _rigidBody ??= GetComponent<Rigidbody>();
         }
 
         void Update()

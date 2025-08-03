@@ -26,14 +26,17 @@ public class Rebound : MonoBehaviour
 
 #if UNITY_EDITOR
 
-    CapsuleCollider _capsuleCollider;
+    Collider _collider;
 
     void OnDrawGizmos()
     {
-        _capsuleCollider ??= GetComponent<CapsuleCollider>();
+        _collider ??= GetComponent<Collider>();
         Gizmos.color = Color.green;
         Gizmos.matrix = transform.localToWorldMatrix;
-        Gizmos.DrawWireSphere(_capsuleCollider.center, _capsuleCollider.radius);
+        if (_collider is CapsuleCollider cpCollider)
+            Gizmos.DrawWireSphere(cpCollider.center, cpCollider.radius);
+        else if (_collider is BoxCollider bxCollider)
+            Gizmos.DrawWireCube(bxCollider.center, bxCollider.size);
         Gizmos.matrix = Matrix4x4.identity;
     }
 

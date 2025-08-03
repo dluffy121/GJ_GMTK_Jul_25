@@ -37,9 +37,9 @@ public class Player : MonoBehaviour
 
     bool _isDead = false;
 
-    public static PlayerMovementData PlayerMovData => Instance.m_playerMovData;
-    public static Rigidbody PlayerRigidbody => Instance.m_rigidbody;
-    public static Health PlayerHealth => Instance.m_playerHealth;
+    public static PlayerMovementData PlayerMovData => Instance?.m_playerMovData;
+    public static Rigidbody PlayerRigidbody => Instance?.m_rigidbody;
+    public static Health PlayerHealth => Instance?.m_playerHealth;
 
     public static Action OnPlayerDamaged;
 
@@ -49,14 +49,16 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
-        m_playerHealth.OnHealthZero += OnPlayerDied;
+        if (m_playerHealth)
+            m_playerHealth.OnHealthZero += OnPlayerDied;
         LevelManager.OnStarCollect += OnStarCollected;
     }
 
     private void OnDestroy()
     {
         LevelManager.OnStarCollect -= OnStarCollected;
-        m_playerHealth.OnHealthZero -= OnPlayerDied;
+        if (m_playerHealth)
+            m_playerHealth.OnHealthZero -= OnPlayerDied;
         Instance = null;
     }
 

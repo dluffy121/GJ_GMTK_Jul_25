@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        Application.targetFrameRate = -1;
         LoadMainMenuScene();
     }
     private void OnDestroy()
