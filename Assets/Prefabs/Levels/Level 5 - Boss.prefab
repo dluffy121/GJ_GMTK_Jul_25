@@ -169,34 +169,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIBossLevel
       objectReference: {fileID: 0}
-    - target: {fileID: 3910201921717458873, guid: 9ddd1cf14eda5d9478ebaf103f5b5e87, type: 3}
-      propertyPath: m_text
-      value: ANAMOLY DETECTED!
-      objectReference: {fileID: 0}
-    - target: {fileID: 3910201921717458873, guid: 9ddd1cf14eda5d9478ebaf103f5b5e87, type: 3}
-      propertyPath: m_fontSize
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 3910201921717458873, guid: 9ddd1cf14eda5d9478ebaf103f5b5e87, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 2fbb5c847bbdfa84795a32d52bce714b, type: 2}
-    - target: {fileID: 3910201921717458873, guid: 9ddd1cf14eda5d9478ebaf103f5b5e87, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 3910201921717458873, guid: 9ddd1cf14eda5d9478ebaf103f5b5e87, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -4131329939671463226, guid: 2fbb5c847bbdfa84795a32d52bce714b, type: 2}
-    - target: {fileID: 3910201921717458873, guid: 9ddd1cf14eda5d9478ebaf103f5b5e87, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278190335
-      objectReference: {fileID: 0}
-    - target: {fileID: 3910201921717458873, guid: 9ddd1cf14eda5d9478ebaf103f5b5e87, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8002002711161579515, guid: 9ddd1cf14eda5d9478ebaf103f5b5e87, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -276,10 +248,6 @@ PrefabInstance:
     - target: {fileID: 8002002711161579515, guid: 9ddd1cf14eda5d9478ebaf103f5b5e87, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8382370683139935780, guid: 9ddd1cf14eda5d9478ebaf103f5b5e87, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
