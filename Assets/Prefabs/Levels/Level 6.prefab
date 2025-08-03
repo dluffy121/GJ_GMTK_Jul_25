@@ -64,6 +64,7 @@ MonoBehaviour:
   m_starsToCompleteLevel: 3
   _UIbossLevel: {fileID: 1558139730970891997}
   _UIFadeDuration: 1
+  _levelMusicIndex: 1
 --- !u!1 &5076744645813800685
 GameObject:
   m_ObjectHideFlags: 0

@@ -53,6 +53,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_playerPos: {fileID: 508994939422858903}
   m_starsToCompleteLevel: 1
+  _UIbossLevel: {fileID: 0}
+  _UIFadeDuration: 0
+  _levelMusicIndex: 1
 --- !u!1 &5076744645813800685
 GameObject:
   m_ObjectHideFlags: 0
