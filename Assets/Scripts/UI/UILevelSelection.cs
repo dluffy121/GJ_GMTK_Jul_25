@@ -11,7 +11,7 @@ namespace GJ_GMTK_Jul_2025
 
         private void Start()
         {
-            for(int index =0; index < m_goLevels.Length; index++)
+            for (int index = 0; index < m_goLevels.Length; index++)
             {
                 if (PlayerPrefs.HasKey(LevelManager.UNLOCKED_LEVEL))
                 {
@@ -23,6 +23,25 @@ namespace GJ_GMTK_Jul_2025
                 }
             }
         }
+
+        GameObject levelText;
+        GameObject player;
+
+        void OnEnable()
+        {
+            levelText ??= GameObject.Find("LevelText");
+            player ??= GameObject.Find("Player MainMenu");
+
+            levelText.SetActive(false);
+            player.SetActive(false);
+        }
+
+        void OnDisable()
+        {
+            levelText.SetActive(true);
+            player.SetActive(true);
+        }
+
         public void OnBtnClicked_Level(int a_level)
         {
             GameManager.PlayBtnClickSFX();

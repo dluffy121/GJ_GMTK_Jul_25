@@ -23,7 +23,7 @@ PrefabInstance:
     - target: {fileID: 2454582397500981508, guid: b33966d2b9877df40b74add281bdfe89, type: 3}
       propertyPath: _playerMovData
       value: 
-      objectReference: {fileID: 11400000, guid: 1e670e2fed88af740ad3258f0ca20a15, type: 2}
+      objectReference: {fileID: 11400000, guid: 79194f9f40fa34c43bfbbd9cf22e42fd, type: 2}
     - target: {fileID: 3376773757888476653, guid: b33966d2b9877df40b74add281bdfe89, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
