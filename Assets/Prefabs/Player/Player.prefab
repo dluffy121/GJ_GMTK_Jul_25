@@ -240,8 +240,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7916771, y: 1, z: 0.6673054}
-  m_Center: {x: 0.017101169, y: 2.3209285e-17, z: 0.013991788}
+  m_Size: {x: 0.47995183, y: 1, z: 0.3262028}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!96 &2095263929757887006
 TrailRenderer:
   serializedVersion: 3
