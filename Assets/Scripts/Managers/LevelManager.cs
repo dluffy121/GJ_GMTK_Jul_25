@@ -138,6 +138,7 @@ public class LevelManager : MonoBehaviour
     IEnumerator WaitToCompleteLevel()
     {
         GameManager.ShowWinUI();
+        Player.PlayerCollider.enabled = false;
         yield return new WaitForSeconds(m_timeBeforeReloading);
         GameManager.HideWinUI();
         if (m_currentLevelIndex < m_levels.Length)

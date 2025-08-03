@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 3185976792046797990}
   - component: {fileID: 7894887429981064263}
   - component: {fileID: 7948292564416142092}
+  - component: {fileID: 2412020104032119205}
   m_Layer: 0
   m_Name: BdaLaser
   m_TagString: Untagged
@@ -391,6 +392,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2412020104032119205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6010671692549773612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeb63f064d02a524182b7dcfc3b59472, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_enemyType: 2
+  _as: {fileID: 0}
+  _hitSFX: {fileID: 0}
+  _hitSFXVol: 1
 --- !u!1 &8790268806983218537
 GameObject:
   m_ObjectHideFlags: 0

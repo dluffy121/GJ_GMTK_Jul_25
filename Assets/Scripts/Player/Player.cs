@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
     public static PlayerMovementData PlayerMovData => Instance?.m_playerMovData;
     public static Rigidbody PlayerRigidbody => Instance?.m_rigidbody;
     public static Health PlayerHealth => Instance?.m_playerHealth;
+    public static Collider PlayerCollider => Instance.m_playerCollider; 
 
     public static Action OnPlayerDamaged;
 

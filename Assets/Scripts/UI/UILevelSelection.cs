@@ -38,8 +38,10 @@ namespace GJ_GMTK_Jul_2025
 
         void OnDisable()
         {
-            levelText.SetActive(true);
-            player.SetActive(true);
+            if(levelText)
+                levelText.SetActive(true);
+            if(player)
+                player.SetActive(true);
         }
 
         public void OnBtnClicked_Level(int a_level)

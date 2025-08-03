@@ -24,7 +24,8 @@ public class EnemyShooter : MonoBehaviour
 
     private void OnPlayerDied()
     {
-        Destroy(gameObject);
+        //if(gameObject != null)
+        //    Destroy(gameObject);
     }
 
     private void Update()
