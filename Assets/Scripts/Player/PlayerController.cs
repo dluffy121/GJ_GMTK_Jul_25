@@ -19,6 +19,10 @@ namespace GJ_GMTK_Jul_2025
     {
         [SerializeField] PlayerMovementData _playerMovData;
 
+        public event Action OnStartMoveForward;
+        public event Action OnStartLooping;
+        public event Action<bool> OnFlipLoop;
+
         bool _isTakingInput = true;
         Rigidbody _rigidBody;
 
@@ -126,7 +130,7 @@ namespace GJ_GMTK_Jul_2025
 
                 if (TryResetTimer(ref _flipLoopTimer, _playerMovData.LoopDirFlipCooldown))
                 {
-                    _isLoopingClockwise = !_isLoopingClockwise;
+                    FlipLoop();
 
                     calculateOffset = true;
                 }
@@ -134,6 +138,12 @@ namespace GJ_GMTK_Jul_2025
 
             if (calculateOffset)
                 CalculateOffset();
+        }
+
+        private void FlipLoop()
+        {
+            _isLoopingClockwise = !_isLoopingClockwise;
+            OnFlipLoop?.Invoke(_isLoopingClockwise);
         }
 
         private bool ChangeState(EState state)
@@ -297,7 +307,7 @@ namespace GJ_GMTK_Jul_2025
         internal void Rebound()
         {
             if (_currState == EState.Looping)
-                _isLoopingClockwise = !_isLoopingClockwise;
+                FlipLoop();
             _applyReboundVelocity = true;
         }
 

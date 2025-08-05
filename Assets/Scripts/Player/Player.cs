@@ -22,6 +22,14 @@ public class Player : MonoBehaviour
     [SerializeField] Animator _deathAnim;
     [SerializeField] Animator _shieldUp;
 
+    [Header("Visual")]
+    [SerializeField] TrailRenderer _trailRenderer;
+    [SerializeField] Gradient _clockWiseGrad;
+    [SerializeField] Gradient _antiClockWiseGrad;
+    [SerializeField, Range(0, 1)] float _trailBlendFactor = 0f; // 0 = anti, 1 = clock
+    [SerializeField, Range(0, 10)] float _blendSpeed = 1f; // 0 = anti, 1 = clock
+    float _targetTrailBlendFactor;
+
     [Header("SFX")]
     [SerializeField] AudioSource _as;
     [SerializeField] AudioClip _shieldUpSFX;
@@ -40,19 +48,26 @@ public class Player : MonoBehaviour
     public static PlayerMovementData PlayerMovData => Instance?.m_playerMovData;
     public static Rigidbody PlayerRigidbody => Instance?.m_rigidbody;
     public static Health PlayerHealth => Instance?.m_playerHealth;
-    public static Collider PlayerCollider => Instance.m_playerCollider; 
+    public static Collider PlayerCollider => Instance.m_playerCollider;
 
     public static Action OnPlayerDamaged;
+
+    Gradient _trailRendererGradient;
 
     private void Awake()
     {
         Instance = this;
+        _trailRendererGradient = _trailRenderer.colorGradient;
     }
+
     private void Start()
     {
         if (m_playerHealth)
             m_playerHealth.OnHealthZero += OnPlayerDied;
         LevelManager.OnStarCollect += OnStarCollected;
+
+        m_controller.OnFlipLoop += OnFlipLoop;
+
     }
 
     private void OnDestroy()
@@ -108,23 +123,6 @@ public class Player : MonoBehaviour
             Instance.StartCoroutine(Instance.TurnOffPlayerCOllider());
     }
 
-    public static void IncreasePlayerSpeed(float a_incSpeed)
-    {
-
-    }
-    public static void DecreasePlayerSpeed(float a_decSpeed)
-    {
-
-    }
-    public static void DecreaseRadius(float a_decRadius)
-    {
-
-    }
-    public static void IncreaseRadius(float a_incRadius)
-    {
-
-    }
-
     public static void OnPickupPowerup(EPowerup a_powerupType, float a_value)
     {
         switch (a_powerupType)
@@ -163,6 +161,18 @@ public class Player : MonoBehaviour
     private void OnStarCollected()
     {
         _as.PlayOneShot(_starCollectSFX, _starCollectSFXVol);
+    }
+
+    private void Update()
+    {
+        _trailBlendFactor = Mathf.Lerp(_trailBlendFactor, _targetTrailBlendFactor, Time.deltaTime * _blendSpeed);
+        _trailRendererGradient.BlendGradients(_antiClockWiseGrad, _clockWiseGrad, _trailBlendFactor);
+        _trailRenderer.colorGradient = _trailRendererGradient;
+    }
+
+    private void OnFlipLoop(bool clockwise)
+    {
+        _targetTrailBlendFactor = clockwise ? 1f : 0f;
     }
 
     #region World Interactions
