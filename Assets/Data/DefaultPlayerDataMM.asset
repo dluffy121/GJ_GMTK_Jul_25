@@ -16,6 +16,6 @@ MonoBehaviour:
   LoopOffset: 1.7
   LoopDirFlipCooldown: 0.1
   LoopCorrectionMultiplier: 0.5
-  LoopCorrectionMultiplierFadeSpeed: 1
-  BaseMoveSpeed: 0.01
+  LoopCorrectionMultiplierFadeSpeed: 0.01
+  BaseMoveSpeed: 5
   MoveCooldown: 1

@@ -212,8 +212,9 @@ namespace GJ_GMTK_Jul_2025
         public void ApplyLoopCorrectionForce(ref Vector3 linearVelocity, Vector3 centerToPlayer, float radius)
         {
             float radiusError = centerToPlayer.magnitude - radius;
-            if (Mathf.Abs(radiusError) > 0.001f)
-                linearVelocity += -centerToPlayer * radiusError / Time.deltaTime * _loopCorrectionMultiplier;
+            if (Mathf.Abs(radiusError) <= Mathf.Epsilon)
+                return;
+            linearVelocity -= centerToPlayer * radiusError / Time.deltaTime * _loopCorrectionMultiplier;
         }
 
         public void ApplyForwardVelocity(ref Vector3 linearVelocity)
