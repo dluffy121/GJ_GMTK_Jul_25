@@ -22,7 +22,7 @@ public class Fan : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        _playerObjRef.ApplyPullEffect(Vector3.zero, -1);
+        _playerObjRef.ApplyPushEffect(Vector3.zero, -1);
         _playerObjRef = null;
     }
 

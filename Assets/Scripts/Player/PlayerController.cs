@@ -1,7 +1,5 @@
 using UnityEngine;
 using System;
-using System.Collections.Generic;
-using System.Collections;
 
 
 
@@ -33,12 +31,17 @@ namespace GJ_GMTK_Jul_2025
                 Handles.color = Gizmos.color = Color.cyan;
                 Gizmos.DrawSphere(_loopOffsetPoint, .1f);
                 Gizmos.DrawLine(transform.position, _loopOffsetPoint);
+                Vector3 diff = transform.position - _loopOffsetPoint;
+                Vector3 mid = diff / 2;
+                Handles.Label(_loopOffsetPoint + Vector3.forward * 0.2f, diff.magnitude.ToString("f3"));
             }
 
             Handles.color = Gizmos.color = Color.red;
-            Vector3 to = transform.position + _tangent;
+            Vector3 to = transform.position + _rigidBody.linearVelocity;
             Gizmos.DrawSphere(to, .1f);
             Gizmos.DrawLine(transform.position, to);
+
+            Handles.Label(transform.position + Vector3.right * 0.75f, _rigidBody.linearVelocity.magnitude.ToString("f3"));
         }
 
 #endif
@@ -56,9 +59,12 @@ namespace GJ_GMTK_Jul_2025
 
             UpdateState();
 
-            UpdateMovement();
-
             UpdateTimers();
+        }
+
+        void FixedUpdate()
+        {
+            UpdateMovement();
         }
 
         #region Input
@@ -143,11 +149,7 @@ namespace GJ_GMTK_Jul_2025
 
         bool _isLoopingClockwise = true;
         Vector3 _loopOffsetPoint;
-        Vector3 _tangent;
-        float _forwardMultiplier = 1;
-        Vector3? _pullTarget = null;
-        float _pullStrength = 0f;
-        Vector3? _pushDirection = null;
+        float _loopCorrectionMultiplier;
 
         private void CalculateOffset()
         {
@@ -157,22 +159,87 @@ namespace GJ_GMTK_Jul_2025
 
         private void UpdateMovement()
         {
+            float baseSpeedMultiplier = 1;
+            Vector3 linearVelocity = _rigidBody.linearVelocity;
+
             switch (_currState)
             {
                 case EState.Looping:
-                    Vector3 centerToPlayer = transform.position - _loopOffsetPoint;
-                    Vector3 desiredPos = _loopOffsetPoint + centerToPlayer.normalized * _playerMovData.LoopOffset;
-                    transform.position = desiredPos;
-                    Vector3 lhs = _isLoopingClockwise ? Vector3.up : Vector3.down;
-                    _tangent = Vector3.Cross(lhs, centerToPlayer).normalized;
-                    _rigidBody.linearVelocity = _tangent * _playerMovData.BaseLoopSpeed;
-                    _rigidBody.rotation = Quaternion.LookRotation(_tangent);
+                    baseSpeedMultiplier = _playerMovData.BaseLoopSpeed;
+                    Vector3 centerToPlayer = _rigidBody.position - _loopOffsetPoint;
+                    float radius = _playerMovData.LoopOffset;
+                    ApplyLoopVelocity(ref linearVelocity, centerToPlayer);
+                    UpdateLoopCorrectionMultiplier();
+                    ApplyLoopCorrectionForce(ref linearVelocity, centerToPlayer, radius);
                     break;
                 case EState.Moving:
-                    _rigidBody.position += _tangent * _playerMovData.BaseMoveSpeed;
-                    _rigidBody.rotation = Quaternion.LookRotation(_tangent);
+                    baseSpeedMultiplier = _playerMovData.BaseMoveSpeed;
+                    Debug.LogError("Applying Forward");
+                    ApplyForwardVelocity(ref linearVelocity);
                     break;
             }
+
+            if (_applyReboundVelocity)
+                ApplyReboundVelocity(ref linearVelocity);
+            if (_pullTarget.HasValue)
+                ApplyPointPullVelocity(ref linearVelocity);
+            if (_pushDirection.HasValue)
+                ApplyDirectionalPushVelocity(ref linearVelocity);
+
+            if (linearVelocity.magnitude > baseSpeedMultiplier)
+                linearVelocity = linearVelocity.normalized * baseSpeedMultiplier;
+
+            _rigidBody.linearVelocity = linearVelocity;
+            _rigidBody.rotation = Quaternion.LookRotation(linearVelocity.normalized);
+        }
+
+        public void ApplyLoopVelocity(ref Vector3 linearVelocity, Vector3 centerToPlayer)
+        {
+            Vector3 tangent = Vector3.Cross(_isLoopingClockwise ? Vector3.up : Vector3.down, centerToPlayer).normalized;
+            linearVelocity += tangent * _playerMovData.BaseLoopSpeed * Time.deltaTime;
+        }
+
+        private void UpdateLoopCorrectionMultiplier()
+        {
+            float loopCorrectionMultiplierTarget = _playerMovData.LoopCorrectionMultiplier;
+            if (_pullTarget.HasValue
+                || _pushDirection.HasValue)
+                loopCorrectionMultiplierTarget = 0;
+            _loopCorrectionMultiplier = Mathf.MoveTowards(_loopCorrectionMultiplier,
+                                                          loopCorrectionMultiplierTarget,
+                                                          _playerMovData.LoopCorrectionMultiplierFadeSpeed);
+        }
+
+        public void ApplyLoopCorrectionForce(ref Vector3 linearVelocity, Vector3 centerToPlayer, float radius)
+        {
+            float radiusError = centerToPlayer.magnitude - radius;
+            if (Mathf.Abs(radiusError) > 0.001f)
+                linearVelocity += -centerToPlayer * radiusError / Time.deltaTime * _loopCorrectionMultiplier;
+        }
+
+        public void ApplyForwardVelocity(ref Vector3 linearVelocity)
+        {
+            linearVelocity += transform.forward * _playerMovData.BaseMoveSpeed * Time.deltaTime;
+        }
+
+        private void ApplyReboundVelocity(ref Vector3 linearVelocity)
+        {
+            linearVelocity -= linearVelocity * 2;
+            _applyReboundVelocity = false;
+        }
+
+        private void ApplyPointPullVelocity(ref Vector3 linearVelocity)
+        {
+            Vector3 pullPos = _pullTarget.Value;
+            Vector3 toCenter = (pullPos - _rigidBody.position).normalized;
+            Vector3 pullVelocity = _pullStrength * Time.deltaTime * toCenter;
+            linearVelocity += pullVelocity;
+        }
+
+        private void ApplyDirectionalPushVelocity(ref Vector3 linearVelocity)
+        {
+            Vector3 pushVelocity = _pushStrength * Time.deltaTime * _pushDirection.Value;
+            linearVelocity += pushVelocity;
         }
 
         #endregion
@@ -201,26 +268,29 @@ namespace GJ_GMTK_Jul_2025
 
         #region World Interactions
 
+        bool _applyReboundVelocity = false;
+        Vector3? _pullTarget = null;
+        float _pullStrength = 0f;
+        Vector3? _pushDirection = null;
+        float _pushStrength = 0f;
+
         internal void ApplyPullEffect(Vector3 position, float pullStrength)
         {
-            _pullTarget = position;
+            _pullTarget = pullStrength <= 0 ? null : position;
             _pullStrength = pullStrength;
         }
 
         internal void ApplyPushEffect(Vector3 direction, float pushStrength)
         {
-            _pushDirection =
-                pushStrength <= 0
-                ? null
-                : direction * pushStrength;
+            _pushDirection = pushStrength <= 0 ? null : direction;
+            _pushStrength = pushStrength;
         }
 
         internal void Teleport(Transform target, float forwardOffset)
         {
-            transform.position = target.position + target.forward * forwardOffset;
-            transform.forward = target.forward;
-            if (_currState == EState.Moving)
-                _tangent = target.forward;
+            _rigidBody.position = target.position + target.forward * forwardOffset;
+            _rigidBody.rotation = Quaternion.Euler(target.forward);
+            Physics.Simulate(1);
             CalculateOffset();
         }
 
@@ -228,11 +298,7 @@ namespace GJ_GMTK_Jul_2025
         {
             if (_currState == EState.Looping)
                 _isLoopingClockwise = !_isLoopingClockwise;
-            else
-            {
-                _rigidBody.linearVelocity -= _rigidBody.linearVelocity;
-                _tangent = -_tangent;
-            }
+            _applyReboundVelocity = true;
         }
 
         #endregion

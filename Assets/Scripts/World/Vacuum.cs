@@ -1,10 +1,12 @@
+using System;
+using GJ_GMTK_Jul_2025;
 using UnityEngine;
 
 public class Vacuum : MonoBehaviour
 {
     [SerializeField] float _pullStrength;
 
-    Player _playerObjRef;
+    PlayerController _playerObjRef;
 
     void OnTriggerEnter(Collider other)
     {
