@@ -174,7 +174,6 @@ namespace GJ_GMTK_Jul_2025
                     break;
                 case EState.Moving:
                     baseSpeedMultiplier = _playerMovData.BaseMoveSpeed;
-                    Debug.LogError("Applying Forward");
                     ApplyForwardVelocity(ref linearVelocity);
                     break;
             }
